@@ -1,95 +1,254 @@
+<!-- Navigation -->
 <nav class="navbar">
   <div class="container">
     <div class="navbar-content">
-      <a href="#" class="navbar-brand">MemoireManager</a>
-      <ul class="navbar-nav">
-        <li><a href="#features">Fonctionnalités</a></li>
-        <li><a href="#about">À propos</a></li>
-        <li><a href="login.html">Connexion</a></li>
-        <li>
-          <a
-            href="register.html"
-            class="btn btn-outline"
-            style="padding: 0.5rem 1rem"
-            >S'inscrire</a
-          >
-        </li>
-      </ul>
+      <div class="navbar-brand">
+        <div class="logo-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <span class="brand-text">Memoire Manager</span>
+        <span class="badge-free">Free</span>
+      </div>
+
+      <div class="navbar-nav">
+        <a href="#" class="nav-link active">Accueil</a>
+        <a (click)="scrollToSection('services')" class="nav-link">Services</a>
+        <a (click)="scrollToSection('features')" class="nav-link"
+          >Fonctionnalités</a
+        >
+        <a (click)="navigateToAbout()" class="nav-link">À propos</a>
+        <a (click)="scrollToSection('contact')" class="nav-link">Contact</a>
+        <button class="share-btn">
+          <i class="fas fa-share-alt"></i>
+        </button>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </div>
 </nav>
 
+<!-- Hero Section -->
 <section class="hero-section">
   <div class="container">
-    <div class="hero-content fade-in">
-      <h1>MemoireManager</h1>
-      <p>La plateforme moderne de gestion des mémoires universitaires</p>
-      <div class="d-flex justify-center gap-3">
-        <a
-          href="register.html"
-          class="btn btn-primary"
-          style="background: var(--white); color: var(--primary-blue)"
-        >
-          Commencer maintenant
-        </a>
-        <a
-          href="login.html"
-          class="btn btn-outline"
-          style="border-color: var(--white); color: var(--white)"
-        >
-          Se connecter
-        </a>
+    <div class="hero-content">
+      <h1 class="hero-title">Gestion des Mémoires Universitaires</h1>
+      <p class="hero-subtitle">
+        Depuis notre création, nous proposons une plateforme moderne et efficace
+        pour la gestion complète des mémoires universitaires à travers le monde.
+      </p>
+      <button class="btn btn-primary btn-large">
+        <a [routerLink]="'/register'" id="commencer">COMMENCER MAINTENANT</a>
+      </button>
+    </div>
+  </div>
+
+  <!-- Background decoration -->
+  <div class="hero-decoration">
+    <img src="assets/img/pigier_bleu_blanc.jpg" alt="Logo Pigier" />
+    <div class="circle circle-large"></div>
+    <div class="circle circle-medium"></div>
+    <div class="circle circle-small">
+      <i class="fas fa-graduation-cap"></i>
+    </div>
+  </div>
+
+  <!-- Chat widget -->
+  <div class="chat-widget">
+    <div class="chat-message">
+      <p>Salut ! Comment puis-je vous aider ?</p>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="services-section">
+  <div class="container">
+    <div class="services-grid">
+      <!-- Left side - Illustration -->
+      <div class="services-illustration">
+        <div class="dashboard-card">
+          <div class="dashboard-content">
+            <div class="stats-grid">
+              <div class="stat-card stat-blue">
+                <i class="fas fa-file-text"></i>
+                <div class="stat-label">Mémoires</div>
+                <div class="stat-value">1,247</div>
+              </div>
+              <div class="stat-card stat-green">
+                <i class="fas fa-check-circle"></i>
+                <div class="stat-label">Validés</div>
+                <div class="stat-value">892</div>
+              </div>
+            </div>
+            <div class="progress-card">
+              <div class="progress-header">
+                <span>Progression</span>
+                <span class="progress-value">78%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side - Content -->
+      <div class="services-content">
+        <h2 class="section-title">
+          Ce Que Nous<br />
+          Proposons
+        </h2>
+        <button class="btn btn-outline btn-services">
+          VOIR TOUS LES SERVICES
+        </button>
+
+        <div class="services-list">
+          <div class="service-item">
+            <div class="service-icon service-icon-blue">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="service-content">
+              <h3>GESTION ÉTUDIANTS</h3>
+              <p>
+                Besoin d'une plateforme spécifique pour vos étudiants ? Nous
+                sommes prêts à la développer !
+              </p>
+            </div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-icon service-icon-green">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="service-content">
+              <h3>VALIDATION PROFESSEURS</h3>
+              <p>
+                Nos experts fournissent des outils personnalisés pour la
+                validation des mémoires par les professeurs.
+              </p>
+            </div>
+          </div>
+
+          <div class="service-item">
+            <div class="service-icon service-icon-purple">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="service-content">
+              <h3>ANALYTICS AVANCÉS</h3>
+              <p>
+                Nous proposons également des solutions fiables d'analyse et de
+                reporting en temps réel.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Features Section -->
 <section id="features" class="features-section">
   <div class="container">
-    <h2 class="text-center mb-4">Fonctionnalités principales</h2>
-    <div class="grid grid-3">
+    <div class="section-header">
+      <h2 class="section-title">Fonctionnalités Principales</h2>
+      <p class="section-subtitle">
+        Découvrez tous les outils qui simplifient la gestion de vos mémoires
+        universitaires
+      </p>
+    </div>
+
+    <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">📝</div>
-        <h3>Soumission simplifiée</h3>
+        <div class="feature-icon feature-icon-blue">
+          <i class="fas fa-file-text"></i>
+        </div>
+        <h3>Soumission Simplifiée</h3>
         <p>
           Interface intuitive pour soumettre et gérer vos propositions de
           mémoire
         </p>
       </div>
+
       <div class="feature-card">
-        <div class="feature-icon">✅</div>
-        <h3>Validation rapide</h3>
+        <div class="feature-icon feature-icon-green">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Validation Rapide</h3>
         <p>Processus de validation streamliné pour les professeurs</p>
       </div>
+
       <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>Suivi en temps réel</h3>
+        <div class="feature-icon feature-icon-purple">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3>Suivi Temps Réel</h3>
         <p>Tableaux de bord complets avec statistiques détaillées</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- CTA Section -->
 <section class="cta-section">
   <div class="container">
-    <h2>Prêt à commencer ?</h2>
-    <p>
-      Rejoignez des milliers d'étudiants et professeurs qui utilisent déjà
-      MemoireManager
-    </p>
-    <a href="register.html" class="btn btn-primary">Créer un compte gratuit</a>
+    <div class="cta-content">
+      <h2>Prêt à Commencer ?</h2>
+      <p>
+        Rejoignez des milliers d'étudiants et professeurs qui utilisent déjà
+        Memoire Manager
+      </p>
+      <button class="btn btn-white btn-large" (click)="navigateToRegister()">
+        CRÉER UN COMPTE GRATUIT
+      </button>
+    </div>
   </div>
 </section>
 
-<footer
-  style="
-    background: var(--primary-blue);
-    color: var(--white);
-    padding: 2rem 0;
-    text-align: center;
-  "
->
+<!-- Footer -->
+<footer class="footer" id="contact">
   <div class="container">
-    <p>&copy; 2024 MemoireManager. Tous droits réservés.</p>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <span class="bd-text">Memoire Manager</span>
+        </div>
+        <p>
+          La plateforme de référence pour la gestion des mémoires
+          universitaires.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Liens Rapides</h4>
+        <ul>
+          <li><a href="#" class="nav-link">Accueil</a></li>
+          <li><a (click)="scrollToSection('services')">Services</a></li>
+          <li><a (click)="scrollToSection('features')">Fonctionnalités</a></li>
+          <li><a (click)="scrollToSection('contact')">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Aide</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Memoire Manager. Tous droits réservés.</p>
+    </div>
   </div>
 </footer>

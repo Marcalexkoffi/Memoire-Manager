@@ -1,0 +1,328 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <a href="#" class="navbar-brand">Memoire Manager</a>
+      <button class="menu-toggle">☰</button>
+      <ul class="navbar-nav">
+        <li><a href="#" class="active">Tableau de bord</a></li>
+        <li><a href="#">Propositions</a></li>
+        <li><a href="#">Statistiques</a></li>
+        <li><a href="login.html">Déconnexion</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-layout">
+  <aside class="sidebar">
+    <ul class="sidebar-nav">
+      <li>
+        <a href="#" class="active">
+          <span class="icon">📊</span>
+          Tableau de bord
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">📋</span>
+          Toutes les propositions
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">✅</span>
+          Propositions validées
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">⏳</span>
+          En attente
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">📈</span>
+          Statistiques
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon">⚙️</span>
+          Paramètres
+        </a>
+      </li>
+      <li>
+        <a href="login.html">
+          <span class="icon">🚪</span>
+          Déconnexion
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="fade-in">
+      <div class="mb-4">
+        <h1>Tableau de bord - Professeur</h1>
+        <p>Bienvenue, Prof. Marie Martin</p>
+      </div>
+
+      <!-- Statistiques rapides -->
+      <div class="grid grid-4 mb-4">
+        <div class="card text-center">
+          <h3 style="color: var(--secondary-blue)">12</h3>
+          <p>Total propositions</p>
+        </div>
+        <div class="card text-center">
+          <h3 style="color: var(--warning-orange)">5</h3>
+          <p>En attente</p>
+        </div>
+        <div class="card text-center">
+          <h3 style="color: var(--success-green)">6</h3>
+          <p>Validées</p>
+        </div>
+        <div class="card text-center">
+          <h3 style="color: var(--danger-red)">1</h3>
+          <p>Rejetées</p>
+        </div>
+      </div>
+
+      <!-- Filtres -->
+      <div class="filter-bar">
+        <div class="d-flex justify-between align-center gap-3">
+          <h3 style="margin: 0">Propositions à traiter</h3>
+          <div class="d-flex gap-2">
+            <select class="form-select" style="width: auto">
+              <option>Tous les statuts</option>
+              <option>En attente</option>
+              <option>Validé</option>
+              <option>Rejeté</option>
+            </select>
+            <select class="form-select" style="width: auto">
+              <option>Tous les domaines</option>
+              <option>Informatique</option>
+              <option>Mathématiques</option>
+              <option>Physique</option>
+              <option>Chimie</option>
+            </select>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="Rechercher..."
+              style="width: 200px"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste des propositions -->
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Étudiant</th>
+              <th>Titre</th>
+              <th>Domaine</th>
+              <th>Date</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Jean Dupont</strong><br />
+                <!-- <small>jean.dupont@universite.fr</small> -->
+              </td>
+              <td>
+                <strong>Intelligence Artificielle en Médecine</strong><br />
+                <small
+                  >Application des réseaux de neurones pour le diagnostic
+                  automatisé...</small
+                >
+              </td>
+              <td>Informatique</td>
+              <td>15/01/2024</td>
+              <td>
+                <span class="status status-pending">En attente</span>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <button
+                    class="btn btn-success"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                  >
+                    ✓ Valider
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                    onclick="toggleComment(this)"
+                  >
+                    ✗ Rejeter
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                  >
+                    👁 Détails
+                  </button>
+                </div>
+                <div class="comment-section">
+                  <label class="form-label"
+                    >Commentaire (obligatoire pour un rejet) :</label
+                  >
+                  <textarea
+                    class="form-textarea"
+                    rows="3"
+                    placeholder="Expliquez les raisons du rejet et donnez des conseils..."
+                  ></textarea>
+                  <div class="d-flex gap-2 mt-2">
+                    <button
+                      class="btn btn-danger"
+                      style="padding: 6px 12px; font-size: 0.8rem"
+                    >
+                      Confirmer le rejet
+                    </button>
+                    <button
+                      class="btn btn-outline"
+                      style="padding: 6px 12px; font-size: 0.8rem"
+                      onclick="toggleComment(this.parentElement.parentElement.previousElementSibling.children[1])"
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Marie Dubois</strong><br />
+                <!-- <small>marie.dubois@universite.fr</small> -->
+              </td>
+              <td>
+                <strong>Optimisation des Algorithmes de Tri</strong><br />
+                <small
+                  >Amélioration des performances des algorithmes de tri pour les
+                  grandes données...</small
+                >
+              </td>
+              <td>Mathématiques</td>
+              <td>12/01/2024</td>
+              <td>
+                <span class="status status-pending">En attente</span>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <button
+                    class="btn btn-success"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                  >
+                    ✓ Valider
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                    onclick="toggleComment(this)"
+                  >
+                    ✗ Rejeter
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                  >
+                    👁 Détails
+                  </button>
+                </div>
+                <div class="comment-section">
+                  <label class="form-label"
+                    >Commentaire (obligatoire pour un rejet) :</label
+                  >
+                  <textarea
+                    class="form-textarea"
+                    rows="3"
+                    placeholder="Expliquez les raisons du rejet et donnez des conseils..."
+                  ></textarea>
+                  <div class="d-flex gap-2 mt-2">
+                    <button
+                      class="btn btn-danger"
+                      style="padding: 6px 12px; font-size: 0.8rem"
+                    >
+                      Confirmer le rejet
+                    </button>
+                    <button
+                      class="btn btn-outline"
+                      style="padding: 6px 12px; font-size: 0.8rem"
+                      onclick="toggleComment(this.parentElement.parentElement.previousElementSibling.children[1])"
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Pierre Martin</strong><br />
+                <!-- <small>pierre.martin@universite.fr</small> -->
+              </td>
+              <td>
+                <strong>Blockchain et Sécurité</strong><br />
+                <small
+                  >Étude des protocoles de consensus dans les réseaux
+                  blockchain...</small
+                >
+              </td>
+              <td>Informatique</td>
+              <td>10/01/2024</td>
+              <td>
+                <span class="status status-validated">Validé</span>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <button
+                    class="btn btn-secondary"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                  >
+                    👁 Voir
+                  </button>
+                  <button
+                    class="btn btn-outline"
+                    style="padding: 6px 12px; font-size: 0.8rem"
+                  >
+                    📝 Modifier
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Propositions récemment traitées -->
+      <div class="card">
+        <h3>Activité récente</h3>
+        <div class="alert alert-success">
+          <strong>Proposition validée</strong> - "Blockchain et Sécurité" de
+          Pierre Martin a été approuvée
+        </div>
+        <div class="alert alert-info">
+          <strong>Nouvelle proposition</strong> - Jean Dupont a soumis
+          "Intelligence Artificielle en Médecine"
+        </div>
+        <div class="alert alert-warning">
+          <strong>Rappel</strong> - 5 propositions sont en attente de validation
+          depuis plus de 3 jours
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  function toggleComment(button) {
+    const commentSection = button.parentElement.nextElementSibling;
+    commentSection.classList.toggle("show");
+  }
+</script>

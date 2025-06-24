@@ -1,0 +1,110 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--primary-blue) 0%,
+    var(--secondary-blue) 100%
+  );
+  padding: 2rem;
+}
+
+.auth-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.auth-header {
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.auth-header p {
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+
+.auth-form {
+  text-align: left;
+}
+
+.role-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.role-option {
+  flex: 1;
+  position: relative;
+}
+
+.role-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.role-label {
+  display: block;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--white);
+}
+
+.role-option input[type="radio"]:checked + .role-label {
+  border-color: var(--secondary-blue);
+  background-color: rgba(52, 152, 219, 0.1);
+  color: var(--secondary-blue);
+}
+
+.auth-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.demo-accounts {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--light-gray);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+}
+
+.demo-accounts h4 {
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.demo-account {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem;
+    margin: 1rem;
+  }
+
+  .role-selector {
+    flex-direction: column;
+  }
+}

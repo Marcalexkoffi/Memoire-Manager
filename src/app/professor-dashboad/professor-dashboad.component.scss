@@ -1,0 +1,31 @@
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.comment-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--light-gray);
+  border-radius: var(--border-radius);
+  display: none;
+}
+
+.comment-section.show {
+  display: block;
+}
+
+.proposal-details {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+}
+
+.filter-bar {
+  background: var(--white);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+}
