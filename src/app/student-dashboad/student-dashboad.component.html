@@ -1,224 +1,98 @@
-<div class="dashboard-container">
-  <!-- Header Navigation -->
-  <header class="header">
-    <div class="header-content">
-      <div class="logo">
-        <h1>Memoire Manager</h1>
-      </div>
-      <nav class="header-nav">
-        <a href="#"> Tableau de bord </a>
-        <a href="#">Soumettre un sujet</a>
-        <a href="#">Mes propositions</a>
-        <a href="#">Déconnexion</a>
-      </nav>
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+  <div class="dashboard-title">
+    <h2>Tableau de bord</h2>
+    <p class="welcome-message">Bienvenue,</p>
+  </div>
+  <button class="new-subject-btn">
+    <a
+      style="text-decoration: none; color: white"
+      [routerLink]="'/sutudent-submit'"
+      >+ Nouveau sujet</a
+    >
+  </button>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+  <div class="stat-card pending">
+    <div class="stat-number">En Attente</div>
+    <div class="stat-label">En attente</div>
+  </div>
+  <div class="stat-card validated">
+    <div class="stat-number">Accepter</div>
+    <div class="stat-label">Validé</div>
+  </div>
+  <div class="stat-card rejected">
+    <div class="stat-number">Rejeter</div>
+    <div class="stat-label">Rejeté</div>
+  </div>
+</div>
+
+<!-- Proposals Section -->
+<div class="proposals-section">
+  <div class="section-header">
+    <h3>Mes propositions de mémoire</h3>
+    <div class="filters">
+      <select class="filter-select">
+        <option value="all">Tous les statuts</option>
+        <option value="EN_ATTENTE">En attente</option>
+        <option value="VALIDE">Validé</option>
+        <option value="REJETE">Rejeté</option>
+      </select>
+      <select class="filter-select">
+        <option value="all">Tous les domaines</option>
+        <option value="Informatique">Informatique</option>
+        <option value="Mathématiques">Mathématiques</option>
+        <option value="Physique">Physique</option>
+      </select>
     </div>
-  </header>
+  </div>
 
-  <div class="main-layout">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <rect x="3" y="3" width="7" height="9" />
-            <rect x="14" y="3" width="7" height="5" />
-            <rect x="14" y="12" width="7" height="9" />
-            <rect x="3" y="16" width="7" height="5" />
-          </svg>
-          Tableau de bord
-        </a>
+  <!-- Proposals Table -->
+  <div class="table-container">
+    <table class="proposals-table">
+      <thead>
+        <tr>
+          <th>TITRE</th>
+          <th>DOMAINE</th>
+          <th>DATE DE SOUMISSION</th>
+          <th>STATUT</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="title-cell">
+            <div class="title">Titre</div>
+            <div class="description">Description</div>
+          </td>
+          <td>Exemple 1</td>
+          <td>Exemple 2</td>
+          <td>
+            <span class="status-badge"> </span>
+          </td>
+          <td class="actions-cell">
+            <button class="action-btn view-btn">Voir</button>
+            <button class="action-btn edit-btn">Modifier</button>
+            <button class="action-btn download-btn">Télécharger</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-        <a href="#" class="nav-item">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline points="14,2 14,8 20,8" />
-            <line x1="16" y1="13" x2="8" y2="13" />
-            <line x1="16" y1="17" x2="8" y2="17" />
-            <polyline points="10,9 9,9 8,9" />
-          </svg>
-          Soumettre un sujet
-        </a>
-
-        <a href="#" class="nav-item">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            />
-            <polyline points="14,2 14,8 20,8" />
-            <line x1="16" y1="13" x2="8" y2="13" />
-            <line x1="16" y1="17" x2="8" y2="17" />
-          </svg>
-          Mes propositions
-        </a>
-
-        <a href="#" class="nav-item">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <line x1="18" y1="20" x2="18" y2="10" />
-            <line x1="12" y1="20" x2="12" y2="4" />
-            <line x1="6" y1="20" x2="6" y2="14" />
-          </svg>
-          Statistiques
-        </a>
-
-        <a href="#" class="nav-item">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="3" />
-            <path
-              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-            />
-          </svg>
-          Paramètres
-        </a>
-
-        <a href="#" class="nav-item logout">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16,17 21,12 16,7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
-          Déconnexion
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Dashboard Header -->
-      <div class="dashboard-header">
-        <div class="dashboard-title">
-          <h2>Tableau de bord</h2>
-          <p class="welcome-message">Bienvenue,</p>
-        </div>
-        <button class="new-subject-btn">+ Nouveau sujet</button>
+<!-- Notifications Section -->
+<div class="notifications-section">
+  <h3>Notifications récentes</h3>
+  <div class="notifications-list">
+    <div class="notification-item">
+      <div class="notification-content">
+        <div class="notification-title">Nouveau commentaire</div>
+        <div class="notification-title">Proposition validée</div>
+        <div class="notification-message"></div>
       </div>
-
-      <!-- Stats Cards -->
-      <div class="stats-grid">
-        <div class="stat-card pending">
-          <div class="stat-number">En Attente</div>
-          <div class="stat-label">En attente</div>
-        </div>
-        <div class="stat-card validated">
-          <div class="stat-number">Accepter</div>
-          <div class="stat-label">Validé</div>
-        </div>
-        <div class="stat-card rejected">
-          <div class="stat-number">Rejeter</div>
-          <div class="stat-label">Rejeté</div>
-        </div>
-      </div>
-
-      <!-- Proposals Section -->
-      <div class="proposals-section">
-        <div class="section-header">
-          <h3>Mes propositions de mémoire</h3>
-          <div class="filters">
-            <select class="filter-select">
-              <option value="all">Tous les statuts</option>
-              <option value="EN_ATTENTE">En attente</option>
-              <option value="VALIDE">Validé</option>
-              <option value="REJETE">Rejeté</option>
-            </select>
-            <select class="filter-select">
-              <option value="all">Tous les domaines</option>
-              <option value="Informatique">Informatique</option>
-              <option value="Mathématiques">Mathématiques</option>
-              <option value="Physique">Physique</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Proposals Table -->
-        <div class="table-container">
-          <table class="proposals-table">
-            <thead>
-              <tr>
-                <th>TITRE</th>
-                <th>DOMAINE</th>
-                <th>DATE DE SOUMISSION</th>
-                <th>STATUT</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="title-cell">
-                  <div class="title">Titre</div>
-                  <div class="description">Description</div>
-                </td>
-                <td>Exemple 1</td>
-                <td>Exemple 2</td>
-                <td>
-                  <span class="status-badge"> </span>
-                </td>
-                <td class="actions-cell">
-                  <button class="action-btn view-btn">Voir</button>
-                  <button class="action-btn edit-btn">Modifier</button>
-                  <button class="action-btn download-btn">Télécharger</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Notifications Section -->
-      <div class="notifications-section">
-        <h3>Notifications récentes</h3>
-        <div class="notifications-list">
-          <div class="notification-item">
-            <div class="notification-content">
-              <div class="notification-title">Nouveau commentaire</div>
-              <div class="notification-title">Proposition validée</div>
-              <div class="notification-message"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+    </div>
   </div>
 </div>

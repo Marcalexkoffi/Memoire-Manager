@@ -1,0 +1,15 @@
+.dashboard-container {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+.main-layout {
+  display: flex;
+  padding-top: 70px; // Account for fixed header
+  min-height: calc(100vh - 70px);
+}
+// Main Content
+.main-content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 2rem;
+}
