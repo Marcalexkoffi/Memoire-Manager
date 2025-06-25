@@ -1,83 +1,65 @@
-<body>
-  <div class="auth-container">
-    <div class="auth-card fade-in">
-      <div class="auth-header">
-        <h1>MemoireManager</h1>
-        <p>Connectez-vous à votre compte</p>
+<div class="login-container">
+  <div class="login-card">
+    <!-- Header -->
+    <div class="login-header">
+      <h1 class="app-title">MemoireManager</h1>
+      <p class="login-subtitle">Connectez-vous à votre compte</p>
+    </div>
+
+    <!-- Login Form -->
+    <form class="login-form">
+      <!-- User Type Selection -->
+      <div class="form-group">
+        <label class="form-label">Vous êtes</label>
+        <div class="user-type-selector">
+          <button type="button" class="user-type-btn">Étudiant</button>
+          <button type="button" class="user-type-btn">Professeur</button>
+        </div>
       </div>
 
-      <form class="auth-form">
-        <div class="form-group">
-          <label class="form-label">Vous êtes :</label>
-          <div class="role-selector">
-            <div class="role-option">
-              <input
-                type="radio"
-                id="student"
-                name="role"
-                value="student"
-                checked
-              />
-              <label for="student" class="role-label">
-                <strong>Étudiant</strong>
-              </label>
-            </div>
-            <div class="role-option">
-              <input
-                type="radio"
-                id="professor"
-                name="role"
-                value="professor"
-              />
-              <label for="professor" class="role-label">
-                <strong>Professeur</strong>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="email" class="form-label">Adresse email</label>
-          <input
-            type="email"
-            id="email"
-            class="form-input"
-            placeholder="votre.email@universite.fr"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="password" class="form-label">Mot de passe</label>
-          <input
-            type="password"
-            id="password"
-            class="form-input"
-            placeholder="••••••••"
-            required
-          />
-        </div>
-
-        <button type="submit" class="btn btn-primary w-full">
-          Se connecter
-        </button>
-      </form>
-
-      <div class="auth-footer">
-        <p>
-          Pas encore de compte ? <a href="register.html">Créer un compte</a>
-        </p>
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="form-label">Adresse email</label>
+        <input
+          id="email"
+          type="email"
+          class="form-input"
+          placeholder="votre.email@univmetiers.ci"
+          formControlName="email"
+        />
+        <div class="error-message"></div>
       </div>
 
-      <div class="demo-accounts">
-        <h4>Comptes de démonstration</h4>
-        <div class="demo-account">
-          <!-- <strong>Étudiant :</strong> etudiant@test.fr / password123 -->
-        </div>
-        <div class="demo-account">
-          <!-- <strong>Professeur :</strong> professeur@test.fr / password123 -->
-        </div>
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input
+          id="password"
+          type="password"
+          class="form-input"
+          placeholder="••••••••"
+          formControlName="password"
+        />
+        <div class="error-message"></div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="login-btn">
+        <span>Se connecter</span>
+      </button>
+    </form>
+
+    <!-- Register Link -->
+    <div class="register-link">
+      <span class="register-text">Pas encore de compte ?</span>
+      <a [routerLink]="'/register'">Créer un compte</a>
+    </div>
+
+    <!-- Demo Accounts Section -->
+    <div class="demo-section">
+      <div class="demo-header">
+        <h3>Comptes de démonstration</h3>
       </div>
     </div>
   </div>
-</body>
+</div>
