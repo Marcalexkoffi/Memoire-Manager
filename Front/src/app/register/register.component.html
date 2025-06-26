@@ -43,7 +43,11 @@
           </div>
 
           <!-- Registration Form -->
-          <form class="register-form">
+          <form
+            class="register-form"
+            [formGroup]="registerForm"
+            (ngSubmit)="onSubmit()"
+          >
             <!-- Full Name -->
             <div class="form-group">
               <label for="fullName" class="form-label">Nom complet</label>
@@ -51,10 +55,22 @@
                 id="fullName"
                 type="text"
                 class="form-input"
+                [class.error]="
+                  hasError('fullName', 'required') ||
+                  hasError('fullName', 'minlength')
+                "
                 placeholder="Monsieur Sane"
                 formControlName="fullName"
               />
-              <div class="error-message"></div>
+              <div
+                class="error-message"
+                *ngIf="
+                  hasError('fullName', 'required') ||
+                  hasError('fullName', 'minlength')
+                "
+              >
+                {{ getErrorMessage("fullName") }}
+              </div>
             </div>
 
             <!-- Email -->
@@ -64,12 +80,46 @@
                 id="email"
                 type="email"
                 class="form-input"
+                [class.error]="
+                  hasError('email', 'required') || hasError('email', 'email')
+                "
                 placeholder="MonsieurSane@univmetiers.ci"
                 formControlName="email"
               />
-              <div class="error-message"></div>
+              <div
+                class="error-message"
+                *ngIf="
+                  hasError('email', 'required') || hasError('email', 'email')
+                "
+              >
+                {{ getErrorMessage("email") }}
+              </div>
             </div>
 
+            <!-- Contact -->
+            <div class="form-group">
+              <label for="contact" class="form-label">Contact</label>
+              <input
+                id="contact"
+                type="contact"
+                class="form-input"
+                [class.error]="
+                  hasError('contact', 'required') ||
+                  hasError('contact', 'contact')
+                "
+                placeholder="0000000000"
+                formControlName="contact"
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  hasError('contact', 'required') ||
+                  hasError('contact', 'contact')
+                "
+              >
+                {{ getErrorMessage("contact") }}
+              </div>
+            </div>
             <!-- Password Fields Row -->
             <div class="password-row">
               <div class="form-group">
@@ -78,10 +128,31 @@
                   id="password"
                   type="password"
                   class="form-input"
+                  [class.error]="
+                    hasError('password', 'required') ||
+                    hasError('password', 'minlength')
+                  "
                   placeholder="••••••••"
                   formControlName="password"
                 />
-                <div class="error-message"></div>
+                <div
+                  class="password-strength"
+                  *ngIf="registerForm.get('password')?.value"
+                >
+                  <span class="strength-label">Force: </span>
+                  <span [class]="'strength-' + getPasswordStrengthClass()">{{
+                    getPasswordStrength()
+                  }}</span>
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    hasError('password', 'required') ||
+                    hasError('password', 'minlength')
+                  "
+                >
+                  {{ getErrorMessage("password") }}
+                </div>
               </div>
 
               <div class="form-group">
@@ -92,10 +163,22 @@
                   id="confirmPassword"
                   type="password"
                   class="form-input"
+                  [class.error]="
+                    hasError('confirmPassword', 'required') ||
+                    hasFormError('passwordMismatch')
+                  "
                   placeholder="••••••••"
                   formControlName="confirmPassword"
                 />
-                <div class="error-message"></div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    hasError('confirmPassword', 'required') ||
+                    hasFormError('passwordMismatch')
+                  "
+                >
+                  {{ getErrorMessage("confirmPassword") }}
+                </div>
               </div>
             </div>
 
@@ -103,7 +186,11 @@
             <div class="form-group">
               <label class="form-label">Vous êtes :</label>
               <div class="user-type-cards">
-                <div class="user-type-card">
+                <div
+                  class="user-type-card"
+                  [class.selected]="isUserTypeSelected('Étudiant')"
+                  (click)="selectUserType('Étudiant')"
+                >
                   <div class="card-icon student-icon">
                     <svg
                       width="24"
@@ -123,7 +210,11 @@
                   </div>
                 </div>
 
-                <div class="user-type-card">
+                <div
+                  class="user-type-card"
+                  [class.selected]="isUserTypeSelected('Professeur')"
+                  (click)="selectUserType('Professeur')"
+                >
                   <div class="card-icon professor-icon">
                     <svg
                       width="24"
@@ -168,22 +259,48 @@
                   >
                 </span>
               </label>
-              <div class="error-message">
+              <div
+                class="error-message"
+                *ngIf="hasError('acceptTerms', 'required')"
+              >
                 Vous devez accepter les conditions d'utilisation
               </div>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="register-btn">
+            <button
+              type="submit"
+              class="register-btn"
+              [disabled]="!isFormValid()"
+            >
               <span>Créer mon compte</span>
             </button>
 
             <!-- Login Link -->
             <div class="login-link">
               <span>Déjà un compte ?</span>
-              <a [routerLink]="'/login'"  class="login-btn-link">Se connecter</a>
+              <a [routerLink]="'/login'" class="login-btn-link">Se connecter</a>
             </div>
           </form>
+
+          <!-- Display Values Section -->
+          <!-- <div class="values-display" *ngIf="showValues && submittedData">
+            <h3>Données d'inscription :</h3>
+            <div class="value-item">
+              <strong>Nom complet :</strong> {{ submittedData.fullName }}
+            </div>
+            <div class="value-item">
+              <strong>Email :</strong> {{ submittedData.email }}
+            </div>
+            <div class="value-item">
+              <strong>Type d'utilisateur :</strong> {{ submittedData.userType }}
+            </div>
+            <div class="value-item">
+              <strong>Conditions acceptées :</strong>
+              {{ submittedData.acceptTerms ? "Oui" : "Non" }}
+            </div>
+          </div> -->
+          >>>>>>> a83691f637ec15e21d71661811f08042db46c7f7
         </div>
       </div>
 
@@ -192,17 +309,17 @@
         <div class="stats-card">
           <div class="stats-content">
             <div class="stat-item">
-              <div class="stat-number"></div>
+              <div class="stat-number">{{ formatNumber(stats.users) }}</div>
               <div class="stat-label">utilisateurs</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-              <div class="stat-number"></div>
+              <div class="stat-number">{{ formatNumber(stats.memoires) }}</div>
               <div class="stat-label">mémoires</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-              <div class="stat-number"></div>
+              <div class="stat-number">{{ formatNumber(stats.validated) }}</div>
               <div class="stat-label">validés</div>
             </div>
           </div>

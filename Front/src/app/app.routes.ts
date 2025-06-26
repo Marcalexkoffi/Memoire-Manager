@@ -1,4 +1,3 @@
-import { RegisterComponent } from './register/register.component';
 import { StudentSubmitComponent } from './student-submit/student-submit.component';
 import { StudentDashboadComponent } from './student-dashboad/student-dashboad.component';
 import { ProfessorDashboadComponent } from './professor-dashboad/professor-dashboad.component';
@@ -7,6 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './layout/main/main.component';
+import { TutorComponent } from './tutor/tutor.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'professor-dashboard',
     component: ProfessorDashboadComponent,
+  },
+  {
+    path: 'tutor',
+    component: TutorComponent,
   },
   {
     path: 'workbench',

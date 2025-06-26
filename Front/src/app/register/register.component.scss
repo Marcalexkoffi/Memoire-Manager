@@ -457,7 +457,11 @@
 // Statistics Section
 .stats-section {
   .stats-card {
-    background: linear-gradient(135deg, #4a6fa5 0%, #6b8ebb 100%);
+    background: linear-gradient(
+      135deg,
+      var(--primary-blue),
+      var(--secondary-blue)
+    );
     border-radius: 20px;
     padding: 2rem;
     color: white;
