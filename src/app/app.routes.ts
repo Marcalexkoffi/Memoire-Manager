@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './layout/main/main.component';
+import { TutorComponent } from './tutor/tutor.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'professor-dashboard',
     component: ProfessorDashboadComponent,
+  },
+  {
+    path: 'tutor',
+    component: TutorComponent,
   },
   {
     path: 'workbench',
