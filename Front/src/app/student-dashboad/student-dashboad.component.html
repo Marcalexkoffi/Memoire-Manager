@@ -1,0 +1,98 @@
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+  <div class="dashboard-title">
+    <h2>Tableau de bord</h2>
+    <p class="welcome-message">Bienvenue,</p>
+  </div>
+  <button class="new-subject-btn">
+    <a
+      style="text-decoration: none; color: white"
+      [routerLink]="'/sutudent-submit'"
+      >+ Nouveau sujet</a
+    >
+  </button>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+  <div class="stat-card pending">
+    <div class="stat-number">En Attente</div>
+    <div class="stat-label">En attente</div>
+  </div>
+  <div class="stat-card validated">
+    <div class="stat-number">Accepter</div>
+    <div class="stat-label">Validé</div>
+  </div>
+  <div class="stat-card rejected">
+    <div class="stat-number">Rejeter</div>
+    <div class="stat-label">Rejeté</div>
+  </div>
+</div>
+
+<!-- Proposals Section -->
+<div class="proposals-section">
+  <div class="section-header">
+    <h3>Mes propositions de mémoire</h3>
+    <div class="filters">
+      <select class="filter-select">
+        <option value="all">Tous les statuts</option>
+        <option value="EN_ATTENTE">En attente</option>
+        <option value="VALIDE">Validé</option>
+        <option value="REJETE">Rejeté</option>
+      </select>
+      <select class="filter-select">
+        <option value="all">Tous les domaines</option>
+        <option value="Informatique">Informatique</option>
+        <option value="Mathématiques">Mathématiques</option>
+        <option value="Physique">Physique</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Proposals Table -->
+  <div class="table-container">
+    <table class="proposals-table">
+      <thead>
+        <tr>
+          <th>TITRE</th>
+          <th>DOMAINE</th>
+          <th>DATE DE SOUMISSION</th>
+          <th>STATUT</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="title-cell">
+            <div class="title">Titre</div>
+            <div class="description">Description</div>
+          </td>
+          <td>Exemple 1</td>
+          <td>Exemple 2</td>
+          <td>
+            <span class="status-badge"> </span>
+          </td>
+          <td class="actions-cell">
+            <button class="action-btn view-btn">Voir</button>
+            <button class="action-btn edit-btn">Modifier</button>
+            <button class="action-btn download-btn">Télécharger</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Notifications Section -->
+<div class="notifications-section">
+  <h3>Notifications récentes</h3>
+  <div class="notifications-list">
+    <div class="notification-item">
+      <div class="notification-content">
+        <div class="notification-title">Nouveau commentaire</div>
+        <div class="notification-title">Proposition validée</div>
+        <div class="notification-message"></div>
+      </div>
+    </div>
+  </div>
+</div>

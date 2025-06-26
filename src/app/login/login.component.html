@@ -7,13 +7,27 @@
     </div>
 
     <!-- Login Form -->
-    <form class="login-form">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <!-- User Type Selection -->
       <div class="form-group">
         <label class="form-label">Vous êtes</label>
         <div class="user-type-selector">
-          <button type="button" class="user-type-btn">Étudiant</button>
-          <button type="button" class="user-type-btn">Professeur</button>
+          <button
+            type="button"
+            class="user-type-btn"
+            [class.active]="isUserTypeSelected('Étudiant')"
+            (click)="selectUserType('Étudiant')"
+          >
+            Étudiant
+          </button>
+          <button
+            type="button"
+            class="user-type-btn"
+            [class.active]="isUserTypeSelected('Professeur')"
+            (click)="selectUserType('Professeur')"
+          >
+            Professeur
+          </button>
         </div>
       </div>
 
@@ -24,10 +38,18 @@
           id="email"
           type="email"
           class="form-input"
+          [class.error]="
+            hasError('email', 'required') || hasError('email', 'email')
+          "
           placeholder="votre.email@univmetiers.ci"
           formControlName="email"
         />
-        <div class="error-message"></div>
+        <div
+          class="error-message"
+          *ngIf="hasError('email', 'required') || hasError('email', 'email')"
+        >
+          {{ getErrorMessage("email") }}
+        </div>
       </div>
 
       <!-- Password Field -->
@@ -37,17 +59,51 @@
           id="password"
           type="password"
           class="form-input"
+          [class.error]="
+            hasError('password', 'required') ||
+            hasError('password', 'minlength')
+          "
           placeholder="••••••••"
           formControlName="password"
         />
-        <div class="error-message"></div>
+        <div
+          class="error-message"
+          *ngIf="
+            hasError('password', 'required') ||
+            hasError('password', 'minlength')
+          "
+        >
+          {{ getErrorMessage("password") }}
+        </div>
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="login-btn">
+      <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
         <span>Se connecter</span>
       </button>
     </form>
+
+    <!-- Display Values Section -->
+    <div class="values-display" *ngIf="showValues && submittedData">
+      <h3>Valeurs saisies :</h3>
+      <div class="value-item">
+        <strong>Type d'utilisateur :</strong> {{ submittedData.userType }}
+      </div>
+      <div class="value-item">
+        <strong>Email :</strong> {{ submittedData.email }}
+      </div>
+      <div class="value-item">
+        <strong>Mot de passe :</strong> {{ submittedData.password }}
+      </div>
+      <div class="action-buttons">
+        <button type="button" class="btn-secondary" (click)="hideValues()">
+          Masquer
+        </button>
+        <button type="button" class="btn-secondary" (click)="resetForm()">
+          Réinitialiser
+        </button>
+      </div>
+    </div>
 
     <!-- Register Link -->
     <div class="register-link">
