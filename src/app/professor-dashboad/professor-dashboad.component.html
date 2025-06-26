@@ -1,328 +1,286 @@
-<nav class="navbar">
-  <div class="container">
-    <div class="navbar-content">
-      <a href="#" class="navbar-brand">Memoire Manager</a>
-      <button class="menu-toggle">☰</button>
-      <ul class="navbar-nav">
-        <li><a href="#" class="active">Tableau de bord</a></li>
-        <li><a href="#">Propositions</a></li>
-        <li><a href="#">Statistiques</a></li>
-        <li><a href="login.html">Déconnexion</a></li>
-      </ul>
+<div class="professor-dashboard">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="#" class="navbar-brand">
+          <div class="brand-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <span>Memoire Manager</span>
+        </a>
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul class="navbar-nav">
+          <li><a href="#" class="active">Tableau de bord</a></li>
+          <li><a href="#">Propositions</a></li>
+          <li><a href="#">Statistiques</a></li>
+          <li><a href="#">Déconnexion</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<div class="main-layout">
-  <aside class="sidebar">
-    <ul class="sidebar-nav">
-      <li>
-        <a href="#" class="active">
-          <span class="icon">📊</span>
-          Tableau de bord
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span class="icon">📋</span>
-          Toutes les propositions
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span class="icon">✅</span>
-          Propositions validées
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span class="icon">⏳</span>
-          En attente
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span class="icon">📈</span>
-          Statistiques
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span class="icon">⚙️</span>
-          Paramètres
-        </a>
-      </li>
-      <li>
-        <a href="login.html">
-          <span class="icon">🚪</span>
-          Déconnexion
-        </a>
-      </li>
-    </ul>
-  </aside>
-
-  <main class="main-content">
-    <div class="fade-in">
-      <div class="mb-4">
-        <h1>Tableau de bord - Professeur</h1>
-        <p>Bienvenue, Prof. Marie Martin</p>
-      </div>
-
-      <!-- Statistiques rapides -->
-      <div class="grid grid-4 mb-4">
-        <div class="card text-center">
-          <h3 style="color: var(--secondary-blue)">12</h3>
-          <p>Total propositions</p>
-        </div>
-        <div class="card text-center">
-          <h3 style="color: var(--warning-orange)">5</h3>
-          <p>En attente</p>
-        </div>
-        <div class="card text-center">
-          <h3 style="color: var(--success-green)">6</h3>
-          <p>Validées</p>
-        </div>
-        <div class="card text-center">
-          <h3 style="color: var(--danger-red)">1</h3>
-          <p>Rejetées</p>
-        </div>
-      </div>
-
-      <!-- Filtres -->
-      <div class="filter-bar">
-        <div class="d-flex justify-between align-center gap-3">
-          <h3 style="margin: 0">Propositions à traiter</h3>
-          <div class="d-flex gap-2">
-            <select class="form-select" style="width: auto">
-              <option>Tous les statuts</option>
-              <option>En attente</option>
-              <option>Validé</option>
-              <option>Rejeté</option>
-            </select>
-            <select class="form-select" style="width: auto">
-              <option>Tous les domaines</option>
-              <option>Informatique</option>
-              <option>Mathématiques</option>
-              <option>Physique</option>
-              <option>Chimie</option>
-            </select>
-            <input
-              type="text"
-              class="form-input"
-              placeholder="Rechercher..."
-              style="width: 200px"
-            />
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="professor-info">
+          <div class="professor-avatar">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <div class="professor-details">
+            <h4>professorName</h4>
+            <span class="professor-role">Professeur</span>
           </div>
         </div>
       </div>
 
-      <!-- Liste des propositions -->
-      <div class="card">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Étudiant</th>
-              <th>Titre</th>
-              <th>Domaine</th>
-              <th>Date</th>
-              <th>Statut</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>Jean Dupont</strong><br />
-                <!-- <small>jean.dupont@universite.fr</small> -->
-              </td>
-              <td>
-                <strong>Intelligence Artificielle en Médecine</strong><br />
-                <small
-                  >Application des réseaux de neurones pour le diagnostic
-                  automatisé...</small
-                >
-              </td>
-              <td>Informatique</td>
-              <td>15/01/2024</td>
-              <td>
-                <span class="status status-pending">En attente</span>
-              </td>
-              <td>
-                <div class="action-buttons">
-                  <button
-                    class="btn btn-success"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                  >
-                    ✓ Valider
-                  </button>
-                  <button
-                    class="btn btn-danger"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                    onclick="toggleComment(this)"
-                  >
-                    ✗ Rejeter
-                  </button>
-                  <button
-                    class="btn btn-secondary"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                  >
-                    👁 Détails
-                  </button>
-                </div>
-                <div class="comment-section">
-                  <label class="form-label"
-                    >Commentaire (obligatoire pour un rejet) :</label
-                  >
-                  <textarea
-                    class="form-textarea"
-                    rows="3"
-                    placeholder="Expliquez les raisons du rejet et donnez des conseils..."
-                  ></textarea>
-                  <div class="d-flex gap-2 mt-2">
-                    <button
-                      class="btn btn-danger"
-                      style="padding: 6px 12px; font-size: 0.8rem"
-                    >
-                      Confirmer le rejet
-                    </button>
-                    <button
-                      class="btn btn-outline"
-                      style="padding: 6px 12px; font-size: 0.8rem"
-                      onclick="toggleComment(this.parentElement.parentElement.previousElementSibling.children[1])"
-                    >
-                      Annuler
-                    </button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Marie Dubois</strong><br />
-                <!-- <small>marie.dubois@universite.fr</small> -->
-              </td>
-              <td>
-                <strong>Optimisation des Algorithmes de Tri</strong><br />
-                <small
-                  >Amélioration des performances des algorithmes de tri pour les
-                  grandes données...</small
-                >
-              </td>
-              <td>Mathématiques</td>
-              <td>12/01/2024</td>
-              <td>
-                <span class="status status-pending">En attente</span>
-              </td>
-              <td>
-                <div class="action-buttons">
-                  <button
-                    class="btn btn-success"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                  >
-                    ✓ Valider
-                  </button>
-                  <button
-                    class="btn btn-danger"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                    onclick="toggleComment(this)"
-                  >
-                    ✗ Rejeter
-                  </button>
-                  <button
-                    class="btn btn-secondary"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                  >
-                    👁 Détails
-                  </button>
-                </div>
-                <div class="comment-section">
-                  <label class="form-label"
-                    >Commentaire (obligatoire pour un rejet) :</label
-                  >
-                  <textarea
-                    class="form-textarea"
-                    rows="3"
-                    placeholder="Expliquez les raisons du rejet et donnez des conseils..."
-                  ></textarea>
-                  <div class="d-flex gap-2 mt-2">
-                    <button
-                      class="btn btn-danger"
-                      style="padding: 6px 12px; font-size: 0.8rem"
-                    >
-                      Confirmer le rejet
-                    </button>
-                    <button
-                      class="btn btn-outline"
-                      style="padding: 6px 12px; font-size: 0.8rem"
-                      onclick="toggleComment(this.parentElement.parentElement.previousElementSibling.children[1])"
-                    >
-                      Annuler
-                    </button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Pierre Martin</strong><br />
-                <!-- <small>pierre.martin@universite.fr</small> -->
-              </td>
-              <td>
-                <strong>Blockchain et Sécurité</strong><br />
-                <small
-                  >Étude des protocoles de consensus dans les réseaux
-                  blockchain...</small
-                >
-              </td>
-              <td>Informatique</td>
-              <td>10/01/2024</td>
-              <td>
-                <span class="status status-validated">Validé</span>
-              </td>
-              <td>
-                <div class="action-buttons">
-                  <button
-                    class="btn btn-secondary"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                  >
-                    👁 Voir
-                  </button>
-                  <button
-                    class="btn btn-outline"
-                    style="padding: 6px 12px; font-size: 0.8rem"
-                  >
-                    📝 Modifier
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#" class="active">
+            <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+            <span class="text">Tableau de bord</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon"><i class="fas fa-clipboard-list"></i></span>
+            <span class="text">Toutes les propositions</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon"><i class="fas fa-check-circle"></i></span>
+            <span class="text">Propositions validées</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon"><i class="fas fa-clock"></i></span>
+            <span class="text">En attente</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon"><i class="fas fa-chart-bar"></i></span>
+            <span class="text">Statistiques</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon"><i class="fas fa-cog"></i></span>
+            <span class="text">Paramètres</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+            <span class="text">Déconnexion</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
 
-      <!-- Propositions récemment traitées -->
-      <div class="card">
-        <h3>Activité récente</h3>
-        <div class="alert alert-success">
-          <strong>Proposition validée</strong> - "Blockchain et Sécurité" de
-          Pierre Martin a été approuvée
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- En-tête -->
+        <div class="page-header">
+          <div class="header-content">
+            <h1>Tableau de bord - Professeur</h1>
+            <p class="welcome-text">Bienvenue, professorName</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i>
+              Nouvelle évaluation
+            </button>
+          </div>
         </div>
-        <div class="alert alert-info">
-          <strong>Nouvelle proposition</strong> - Jean Dupont a soumis
-          "Intelligence Artificielle en Médecine"
+
+        <!-- Statistiques rapides -->
+        <div class="stats-grid">
+          <div class="stat-card stat-total">
+            <div class="stat-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="stat-content">
+              <h3>statistics.total</h3>
+              <p>Total propositions</p>
+            </div>
+          </div>
+          <div class="stat-card stat-pending">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-content">
+              <h3>statistics.pending</h3>
+              <p>En attente</p>
+            </div>
+          </div>
+          <div class="stat-card stat-validated">
+            <div class="stat-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-content">
+              <h3>statistics.validated</h3>
+              <p>Validées</p>
+            </div>
+          </div>
+          <div class="stat-card stat-rejected">
+            <div class="stat-icon">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="stat-content">
+              <h3>statistics.rejected</h3>
+              <p>Rejetées</p>
+            </div>
+          </div>
         </div>
-        <div class="alert alert-warning">
-          <strong>Rappel</strong> - 5 propositions sont en attente de validation
-          depuis plus de 3 jours
+
+        <!-- Filtres -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <h3>Propositions à traiter</h3>
+            <div class="filter-controls">
+              <select class="form-select">
+                <option value="all">Tous les statuts</option>
+                <option value="pending">En attente</option>
+                <option value="validated">Validé</option>
+                <option value="rejected">Rejeté</option>
+              </select>
+              <select class="form-select">
+                <option value="all">Tous les domaines</option>
+                <option value="Informatique">Informatique</option>
+                <option value="Mathématiques">Mathématiques</option>
+                <option value="Physique">Physique</option>
+                <option value="Chimie">Chimie</option>
+              </select>
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Rechercher..."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Liste des propositions -->
+        <div class="proposals-section">
+          <div class="proposals-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Étudiant</th>
+                  <th>Titre</th>
+                  <th>Domaine</th>
+                  <th>Date</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="student-cell">
+                    <div class="student-info">
+                      <div class="student-avatar">
+                        <i class="fas fa-user"></i>
+                      </div>
+                      <div class="student-details">
+                        <strong>proposal.student.name </strong>
+                        <small> proposal.student.email </small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="title-cell">
+                    <div class="proposal-title">
+                      <strong>proposal.title </strong>
+                      <p class="proposal-description">proposal.description</p>
+                    </div>
+                  </td>
+                  <td class="domain-cell">
+                    <span class="domain-badge"> proposal.domain </span>
+                  </td>
+                  <td class="date-cell">proposal.date</td>
+                  <td class="status-cell">
+                    <span class="status"> proposal.status </span>
+                  </td>
+                  <td class="actions-cell">
+                    <div class="action-buttons">
+                      <button class="btn btn-success btn-sm" title="Valider">
+                        <i class="fas fa-check"></i>
+                        Valider
+                      </button>
+                      <button class="btn btn-danger btn-sm" title="Rejeter">
+                        <i class="fas fa-times"></i>
+                        Rejeter
+                      </button>
+                      <button
+                        class="btn btn-secondary btn-sm"
+                        title="Voir détails"
+                      >
+                        <i class="fas fa-eye"></i>
+                        Détails
+                      </button>
+                      <button class="btn btn-outline btn-sm" title="Modifier">
+                        <i class="fas fa-edit"></i>
+                        Modifier
+                      </button>
+                    </div>
+
+                    <!-- Section commentaire -->
+                    <div class="comment-section">
+                      <label class="form-label">
+                        Commentaire (obligatoire pour un rejet) :
+                      </label>
+                      <textarea
+                        class="form-textarea"
+                        rows="3"
+                        placeholder="Expliquez les raisons du rejet et donnez des conseils..."
+                      ></textarea>
+                      <div class="comment-actions">
+                        <button class="btn btn-danger btn-sm">
+                          <i class="fas fa-times"></i>
+                          Confirmer le rejet
+                        </button>
+                        <button class="btn btn-outline btn-sm">
+                          <i class="fas fa-undo"></i>
+                          Annuler
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Activité récente -->
+        <div class="activity-section">
+          <div class="activity-card">
+            <h3>
+              <i class="fas fa-history"></i>
+              Activité récente
+            </h3>
+            <div class="activity-list">
+              <div>
+                <div class="activity-icon">activity.type</div>
+                <div class="activity-content">
+                  <strong>Nouvelle proposition' : 'Rappel'</strong>
+                  <p>activity.message</p>
+                  <small> activity.date</small>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </div>
-
-<script>
-  function toggleComment(button) {
-    const commentSection = button.parentElement.nextElementSibling;
-    commentSection.classList.toggle("show");
-  }
-</script>

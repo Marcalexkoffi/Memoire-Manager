@@ -23,7 +23,11 @@
   }
 
   .new-subject-btn {
-    background: linear-gradient(135deg, #4a6fa5 0%, #6b8ebb 100%);
+    background: linear-gradient(
+      135deg,
+      var(--primary-blue),
+      var(--secondary-blue)
+    );
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -138,7 +142,7 @@
     border-collapse: collapse;
 
     thead {
-      background: #4a6fa5;
+      background: rgba(74, 111, 165, 0.05);
       color: white;
 
       th {
@@ -218,7 +222,11 @@
         transition: all 0.3s ease;
 
         &.view-btn {
-          background: #3498db;
+          background: linear-gradient(
+            135deg,
+            var(--primary-blue),
+            var(--secondary-blue)
+          );
           color: white;
 
           &:hover {

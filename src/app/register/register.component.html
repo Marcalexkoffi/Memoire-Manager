@@ -1,208 +1,210 @@
-<!-- Navigation minimale -->
-<nav class="auth-navbar">
-  <div class="container">
-    <div class="navbar-content">
-      <div class="navbar-brand">
-        <div class="logo-icon">
-          <i class="fas fa-graduation-cap"></i>
+<div class="register-container">
+  <!-- Header -->
+  <header class="register-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="logo">
+          <div class="logo-icon"></div>
+          <span class="logo-text">Memoire Manager</span>
+          <span class="logo-badge">free</span>
         </div>
-        <span class="brand-text">Memoire Manager</span>
-        <span class="badge-free">Free</span>
       </div>
-      <button class="btn-back">
-        <i class="fas fa-arrow-left"></i>
-        <a [routerLink]="'/home'">Retour</a>
+      <button class="back-btn">
+        <a [routerLink]="'/home'" style="text-decoration: none">Retour</a>
       </button>
     </div>
-  </div>
-</nav>
+  </header>
 
-<!-- Main Content -->
-<div class="auth-container">
-  <div class="auth-card">
-    <!-- Header -->
-    <div class="auth-header">
-      <div class="auth-icon">
-        <i class="fas fa-user-plus"></i>
-      </div>
-      <h1>Créer un compte</h1>
-      <p>Rejoignez des milliers d'utilisateurs sur Memoire Manager</p>
-    </div>
+  <!-- Main Content -->
+  <div class="register-content">
+    <div class="content-wrapper">
+      <!-- Registration Form -->
+      <div class="register-form-section">
+        <div class="form-card">
+          <!-- Form Header -->
+          <div class="form-header">
+            <div class="user-icon">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <h1 class="form-title">Créer un compte</h1>
+            <p class="form-subtitle">
+              Rejoignez des milliers d'utilisateurs sur Memoire Manager
+            </p>
+          </div>
 
-    <!-- Form -->
-    <form class="auth-form">
-      <!-- Nom complet -->
-      <div class="form-group">
-        <label for="fullName" class="form-label">Nom complet</label>
-        <div class="input-wrapper">
-          <i class="fas fa-user input-icon"></i>
-          <input
-            type="text"
-            id="fullName"
-            formControlName="fullName"
-            class="form-input"
-            placeholder="Jean Dupont"
-          />
-        </div>
-        <div class="error-message"></div>
-      </div>
+          <!-- Registration Form -->
+          <form class="register-form">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label for="fullName" class="form-label">Nom complet</label>
+              <input
+                id="fullName"
+                type="text"
+                class="form-input"
+                placeholder="Monsieur Sane"
+                formControlName="fullName"
+              />
+              <div class="error-message"></div>
+            </div>
 
-      <!-- Email -->
-      <div class="form-group">
-        <label for="email" class="form-label">Adresse email</label>
-        <div class="input-wrapper">
-          <i class="fas fa-envelope input-icon"></i>
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            class="form-input"
-            placeholder="MonsieurSane@univmetiers.ci"
-          />
-        </div>
-        <div class="error-message"></div>
-      </div>
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email" class="form-label">Adresse email</label>
+              <input
+                id="email"
+                type="email"
+                class="form-input"
+                placeholder="MonsieurSane@univmetiers.ci"
+                formControlName="email"
+              />
+              <div class="error-message"></div>
+            </div>
 
-      <!-- Mots de passe -->
-      <div class="form-row">
-        <div class="form-group">
-          <label for="password" class="form-label">Mot de passe</label>
-          <div class="input-wrapper">
-            <i class="fas fa-lock input-icon"></i>
-            <input
-              id="password"
-              formControlName="password"
-              class="form-input"
-              placeholder="••••••••"
-            />
-            <button type="button" class="password-toggle">
-              <i></i>
+            <!-- Password Fields Row -->
+            <div class="password-row">
+              <div class="form-group">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input
+                  id="password"
+                  type="password"
+                  class="form-input"
+                  placeholder="••••••••"
+                  formControlName="password"
+                />
+                <div class="error-message"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword" class="form-label"
+                  >Confirmer</label
+                >
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  class="form-input"
+                  placeholder="••••••••"
+                  formControlName="confirmPassword"
+                />
+                <div class="error-message"></div>
+              </div>
+            </div>
+
+            <!-- User Type Selection -->
+            <div class="form-group">
+              <label class="form-label">Vous êtes :</label>
+              <div class="user-type-cards">
+                <div class="user-type-card">
+                  <div class="card-icon student-icon">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                      <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                  </div>
+                  <div class="card-content">
+                    <h3>Étudiant</h3>
+                    <p>Soumettre et gérer vos propositions de mémoire</p>
+                  </div>
+                </div>
+
+                <div class="user-type-card">
+                  <div class="card-icon professor-icon">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M9 12l2 2 4-4" />
+                      <path
+                        d="M21 12c.552 0 1-.448 1-1V8c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v3c0 .552.448 1 1 1h18z"
+                      />
+                      <path
+                        d="M3 12v7c0 .552.448 1 1 1h16c.552 0 1-.448 1-1v-7"
+                      />
+                    </svg>
+                  </div>
+                  <div class="card-content">
+                    <h3>Professeur</h3>
+                    <p>Valider et superviser les projets étudiants</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms Checkbox -->
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  formControlName="acceptTerms"
+                  class="checkbox-input"
+                />
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-text">
+                  J'accepte les
+                  <a href="#" class="terms-link">conditions d'utilisation</a> et
+                  la
+                  <a href="#" class="terms-link"
+                    >politique de confidentialité</a
+                  >
+                </span>
+              </label>
+              <div class="error-message">
+                Vous devez accepter les conditions d'utilisation
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="register-btn">
+              <span>Créer mon compte</span>
             </button>
-          </div>
-          <div class="error-message"></div>
-        </div>
 
-        <div class="form-group">
-          <label for="confirmPassword" class="form-label">Confirmer</label>
-          <div class="input-wrapper">
-            <i class="fas fa-lock input-icon"></i>
-            <input
-              id="confirmPassword"
-              formControlName="confirmPassword"
-              class="form-input"
-              placeholder="••••••••"
-            />
-            <button type="button" class="password-toggle">
-              <i></i>
-            </button>
-          </div>
-          <div class="error-message"></div>
+            <!-- Login Link -->
+            <div class="login-link">
+              <span>Déjà un compte ?</span>
+              <a href="#" class="login-btn-link">Se connecter</a>
+            </div>
+          </form>
         </div>
       </div>
 
-      <!-- Sélection du rôle -->
-      <div class="form-group">
-        <label class="form-label">Vous êtes :</label>
-        <div class="role-selector">
-          <div class="role-option">
-            <input
-              type="radio"
-              id="student"
-              name="role"
-              value="student"
-              formControlName="role"
-              class="role-radio"
-            />
-            <label for="student" class="role-label">
-              <div class="role-icon role-icon-blue">
-                <i class="fas fa-user-graduate"></i>
-              </div>
-              <div class="role-content">
-                <strong>Étudiant</strong>
-                <small>Soumettre et gérer vos mémoires</small>
-              </div>
-              <div class="role-check">
-                <i class="fas fa-check"></i>
-              </div>
-            </label>
-          </div>
-
-          <div class="role-option">
-            <input
-              type="radio"
-              id="professor"
-              name="role"
-              value="professor"
-              formControlName="role"
-              class="role-radio"
-            />
-            <label for="professor" class="role-label">
-              <div class="role-icon role-icon-green">
-                <i class="fas fa-chalkboard-teacher"></i>
-              </div>
-              <div class="role-content">
-                <strong>Professeur</strong>
-                <small>Valider et superviser les mémoires</small>
-              </div>
-              <div class="role-check">
-                <i class="fas fa-check"></i>
-              </div>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Conditions d'utilisation -->
-      <div class="form-group">
-        <label class="checkbox-label">
-          <input
-            type="checkbox"
-            formControlName="acceptTerms"
-            class="checkbox-input"
-          />
-          <span class="checkbox-custom"></span>
-          <span class="checkbox-text">
-            J'accepte les
-            <a href="#" target="_blank">conditions d'utilisation</a> et la
-            <a href="#" target="_blank">politique de confidentialité</a>
-          </span>
-        </label>
-        <div class="error-message">
-          Vous devez accepter les conditions d'utilisation
-        </div>
-      </div>
-
-      <!-- Bouton de soumission -->
-      <button type="submit" class="btn btn-primary btn-large w-full">
-        <span>Créer mon compte</span>
-      </button>
-    </form>
-
-    <!-- Footer -->
-    <div class="auth-footer">
-      <p>
-        Déjà un compte ?
-        <a class="auth-link">Se connecter</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- Illustration décorative -->
-  <div class="auth-illustration">
-    <div class="illustration-card">
-      <div class="illustration-content">
-        <div class="stats-mini">
-          <div class="stat-item">
-            <i class="fas fa-users"></i>
-            <span>2,847 utilisateurs</span>
-          </div>
-          <div class="stat-item">
-            <i class="fas fa-file-text"></i>
-            <span>1,247 mémoires</span>
-          </div>
-          <div class="stat-item">
-            <i class="fas fa-check-circle"></i>
-            <span>892 validés</span>
+      <!-- Statistics Section -->
+      <div class="stats-section">
+        <div class="stats-card">
+          <div class="stats-content">
+            <div class="stat-item">
+              <div class="stat-number"></div>
+              <div class="stat-label">utilisateurs</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-number"></div>
+              <div class="stat-label">mémoires</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-number"></div>
+              <div class="stat-label">validés</div>
+            </div>
           </div>
         </div>
       </div>
