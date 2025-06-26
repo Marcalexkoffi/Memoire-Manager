@@ -1,0 +1,170 @@
+<div class="tutor-dashboard">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="#" class="navbar-brand">
+          <div class="brand-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <span>Memoire Manager</span>
+        </a>
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul class="navbar-nav">
+          <li><a href="#" class="active">Tableau de bord</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="tutor-info">
+          <div class="tutor-avatar">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="tutor-details">
+            <h4></h4>
+            <span class="tutor-role">Tuteur</span>
+          </div>
+        </div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#" class="active">
+            <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+            <span class="text">Tableau de bord</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#">
+            <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+            <span class="text">Déconnexion</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- En-tête -->
+        <div class="page-header">
+          <div class="header-content">
+            <h1>Tableau de bord - Tuteur</h1>
+            <p class="welcome-text">Bienvenue, tutorName</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary">
+              <i class="fas fa-calendar-plus"></i>
+              <a
+                [routerLink]="'/home'"
+                style="text-decoration: none; color: white"
+              >
+                Accueil</a
+              >
+            </button>
+          </div>
+        </div>
+
+        <!-- Statistiques rapides -->
+        <div class="stats-grid">
+          <div class="stat-card stat-total">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+              <h3></h3>
+              <p>Étudiants encadrés</p>
+            </div>
+          </div>
+          <div class="stat-card stat-progress">
+            <div class="stat-icon">
+              <i class="fas fa-tasks"></i>
+            </div>
+            <div class="stat-content">
+              <h3></h3>
+              <p>En cours</p>
+            </div>
+          </div>
+          <div class="stat-card stat-completed">
+            <div class="stat-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-content">
+              <h3></h3>
+              <p>Terminés</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filtres -->
+        <div class="filter-section">
+          <div class="filter-header">
+            <h3>Étudiants encadrés</h3>
+            <div class="filter-controls">
+              <select class="form-select">
+                <option value="all">Tous les statuts</option>
+                <option value="in_progress">En cours</option>
+                <option value="review">En révision</option>
+                <option value="completed">Terminé</option>
+                <option value="delayed">En retard</option>
+              </select>
+              <select class="form-select">
+                <option value="all">Tous les parcours</option>
+                <option value="Informatique">Informatique</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Communication">Communication</option>
+                <option value="Finance">Finance</option>
+                <option value="Administration">Administration</option>
+              </select>
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Rechercher un étudiant..."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Liste des étudiants -->
+        <div class="filter-section">
+          <div class="students-section">
+            <div class="students-table-container">
+              <table class="students-table">
+                <thead>
+                  <tr>
+                    <th>ÉTUDIANT</th>
+                    <th>MÉMOIRE</th>
+                    <th>PARCOURS</th>
+                    <th>ASSIGNÉ LE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="student-row">
+                    <td class="student-cell">
+                      <div class="student-details">
+                        <h4></h4>
+                        <p></p>
+                        <span class="supervisor"></span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
