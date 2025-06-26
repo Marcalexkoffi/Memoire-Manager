@@ -84,11 +84,12 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.registerForm.valid && this.selectedUserType) {
       this.submittedData = {
-        fullName: this.registerForm.get('fullName')?.value,
+        nom_complet: this.registerForm.get('fullName')?.value,
         email: this.registerForm.get('email')?.value,
+        contact: this.registerForm.get('contact')?.value,
         password: this.registerForm.get('password')?.value,
         confirmPassword: this.registerForm.get('confirmPassword')?.value,
-        userType: this.selectedUserType,
+        role: this.selectedUserType,
         acceptTerms: this.registerForm.get('acceptTerms')?.value,
       };
       // this.showValues = true;

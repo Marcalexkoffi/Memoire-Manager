@@ -96,6 +96,30 @@
               </div>
             </div>
 
+            <!-- Contact -->
+            <div class="form-group">
+              <label for="contact" class="form-label">Contact</label>
+              <input
+                id="contact"
+                type="contact"
+                class="form-input"
+                [class.error]="
+                  hasError('contact', 'required') ||
+                  hasError('contact', 'contact')
+                "
+                placeholder="0000000000"
+                formControlName="contact"
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  hasError('contact', 'required') ||
+                  hasError('contact', 'contact')
+                "
+              >
+                {{ getErrorMessage("contact") }}
+              </div>
+            </div>
             <!-- Password Fields Row -->
             <div class="password-row">
               <div class="form-group">
