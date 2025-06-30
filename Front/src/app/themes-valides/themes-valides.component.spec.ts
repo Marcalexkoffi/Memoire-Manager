@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainComponent } from './main.component';
+import { ThemesValidesComponent } from './themes-valides.component';
 
-describe('MainComponent', () => {
-  let component: MainComponent;
-  let fixture: ComponentFixture<MainComponent>;
+describe('ThemesValidesComponent', () => {
+  let component: ThemesValidesComponent;
+  let fixture: ComponentFixture<ThemesValidesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainComponent]
+      imports: [ThemesValidesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MainComponent);
+    fixture = TestBed.createComponent(ThemesValidesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
