@@ -15,7 +15,6 @@ import {
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  recupData: any = null;
   loginForm!: FormGroup;
   constructor(
     private newRouter: Router,
@@ -34,7 +33,7 @@ export class LoginComponent {
       password: this.loginForm.get('password')?.value,
     };
     console.log('Les données soumises :', recupData);
-    this.authService.login(this.recupData).subscribe({
+    this.authService.login(recupData).subscribe({
       next: (data) => {
         console.log(data);
         this.newRouter.navigate(['/workbench/student-dashboard']);

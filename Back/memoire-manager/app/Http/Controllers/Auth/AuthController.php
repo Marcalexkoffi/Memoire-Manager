@@ -13,11 +13,12 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if($user) {
-            $test = password_verify($request->password, $user->password);
+            $test = password_verify($request->input('password'), $user->password);
             if($test)
-                return response()->json(["message" => "Utilisateur trouve"]);
+                return response()->json(["message" => "Utilisateur trouve"], 200);
+            return response()->json(['message' => "Mot de passe ou email incorrect"], 409);
         } 
-        return response()->json(['message' => 'Aucun utilisateur trouve']);
+        return response()->json(['message' => 'Aucun utilisateur trouve'], 404);
     }
 
     public function register(Request $request) {
