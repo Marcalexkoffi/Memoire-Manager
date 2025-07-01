@@ -8,21 +8,60 @@
           thème de mémoire</b
         >
       </p>
+
+      <!-- Barre de progression -->
+      <div class="progress-container" style="margin-top: 1rem">
+        <div
+          class="progress-bar"
+          style="
+            background: rgba(255, 255, 255, 0.2);
+            height: 6px;
+            border-radius: 3px;
+          "
+        >
+          <div
+            class="progress-fill"
+            [style.width.%]="getCompletionPercentage()"
+            style="
+              background: #4caf50;
+              height: 100%;
+              border-radius: 3px;
+              transition: width 0.3s ease;
+            "
+          ></div>
+        </div>
+        <small style="color: white; margin-top: 0.5rem; display: block">
+          {{ getCompletionPercentage() }}% complété
+        </small>
+      </div>
     </div>
 
     <div class="card-content">
-      <form class="proposal-form">
+      <!-- IMPORTANT: Ajout de [formGroup] et (ngSubmit) -->
+      <form
+        class="proposal-form"
+        [formGroup]="studentForm"
+        (ngSubmit)="onSubmit()"
+      >
         <!-- Contact -->
         <div class="form-group">
           <label for="contact" class="form-label">Contact *</label>
           <input
             id="contact"
-            type="email"
+            type="text"
             class="form-input"
-            placeholder="votre@email.com"
+            placeholder="Votre contact (téléphone, email, etc.)"
             formControlName="contact"
           />
-          <div class="error-message"></div>
+          <div
+            class="error-message"
+            *ngIf="
+              studentForm.get('contact')?.invalid &&
+              studentForm.get('contact')?.touched
+            "
+          >
+            Le contact est requis
+          </div>
         </div>
 
         <!-- Nom et Prénoms -->
@@ -35,7 +74,15 @@
             placeholder="Jean Dupont"
             formControlName="fullName"
           />
-          <div class="error-message"></div>
+          <div
+            class="error-message"
+            *ngIf="
+              studentForm.get('fullName')?.invalid &&
+              studentForm.get('fullName')?.touched
+            "
+          >
+            Le nom et prénoms sont requis
+          </div>
         </div>
 
         <!-- Libellé du thème -->
@@ -48,7 +95,15 @@
             placeholder="Titre de votre thème de mémoire"
             formControlName="themeTitle"
           />
-          <div class="error-message"></div>
+          <div
+            class="error-message"
+            *ngIf="
+              studentForm.get('themeTitle')?.invalid &&
+              studentForm.get('themeTitle')?.touched
+            "
+          >
+            Le libellé du thème est requis
+          </div>
         </div>
 
         <!-- Problématique -->
@@ -61,7 +116,15 @@
             formControlName="problematic"
             rows="4"
           ></textarea>
-          <div class="error-message"></div>
+          <div
+            class="error-message"
+            *ngIf="
+              studentForm.get('problematic')?.invalid &&
+              studentForm.get('problematic')?.touched
+            "
+          >
+            La problématique est requise
+          </div>
         </div>
 
         <!-- Objectif général -->
@@ -76,19 +139,37 @@
             formControlName="generalObjective"
             rows="3"
           ></textarea>
-          <div class="error-message"></div>
+          <div
+            class="error-message"
+            *ngIf="
+              studentForm.get('generalObjective')?.invalid &&
+              studentForm.get('generalObjective')?.touched
+            "
+          >
+            L'objectif général est requis
+          </div>
         </div>
 
         <!-- Objectifs spécifiques -->
         <div class="form-group">
-          <label class="form-label">Objectifs spécifiques *</label>
-          <div class="objectives-container" formArrayName="specificObjectives">
-            <div class="objective-item">
-              <div class="objective-input-group">
-                <input type="text" class="form-input" />
-              </div>
-              <div class="error-message"></div>
-            </div>
+          <label for="specificObjectives" class="form-label"
+            >Objectifs spécifiques *</label
+          >
+          <textarea
+            id="specificObjectives"
+            class="form-textarea"
+            placeholder="Listez vos objectifs spécifiques (un par ligne ou séparés par des points)..."
+            formControlName="specificObjectives"
+            rows="4"
+          ></textarea>
+          <div
+            class="error-message"
+            *ngIf="
+              studentForm.get('specificObjectives')?.invalid &&
+              studentForm.get('specificObjectives')?.touched
+            "
+          >
+            Les objectifs spécifiques sont requis
           </div>
         </div>
 
@@ -104,14 +185,87 @@
             formControlName="expectedResults"
             rows="4"
           ></textarea>
-          <div class="error-message"></div>
+          <div
+            class="error-message"
+            *ngIf="
+              studentForm.get('expectedResults')?.invalid &&
+              studentForm.get('expectedResults')?.touched
+            "
+          >
+            Les résultats attendus sont requis
+          </div>
+        </div>
+
+        <!-- Debug: Affichage du statut du formulaire -->
+        <div
+          style="
+            background: #f0f0f0;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+          "
+        >
+          <p><strong>Debug Info:</strong></p>
+          <p>Formulaire valide: {{ studentForm.valid ? "OUI" : "NON" }}</p>
+          <p>Pourcentage: {{ getCompletionPercentage() }}%</p>
+          <p>Statut des champs:</p>
+          <ul>
+            <li>
+              Contact: {{ studentForm.get("contact")?.valid ? "✅" : "❌" }} ({{
+                studentForm.get("contact")?.value || "vide"
+              }})
+            </li>
+            <li>
+              Nom: {{ studentForm.get("fullName")?.valid ? "✅" : "❌" }} ({{
+                studentForm.get("fullName")?.value || "vide"
+              }})
+            </li>
+            <li>
+              Thème:
+              {{ studentForm.get("themeTitle")?.valid ? "✅" : "❌" }} ({{
+                studentForm.get("themeTitle")?.value || "vide"
+              }})
+            </li>
+            <li>
+              Problématique:
+              {{ studentForm.get("problematic")?.valid ? "✅" : "❌" }} ({{
+                studentForm.get("problematic")?.value || "vide"
+              }})
+            </li>
+            <li>
+              Objectif général:
+              {{ studentForm.get("generalObjective")?.valid ? "✅" : "❌" }} ({{
+                studentForm.get("generalObjective")?.value || "vide"
+              }})
+            </li>
+            <li>
+              Objectifs spécifiques:
+              {{
+                studentForm.get("specificObjectives")?.valid ? "✅" : "❌"
+              }}
+              ({{ studentForm.get("specificObjectives")?.value || "vide" }})
+            </li>
+            <li>
+              Résultats:
+              {{ studentForm.get("expectedResults")?.valid ? "✅" : "❌" }} ({{
+                studentForm.get("expectedResults")?.value || "vide"
+              }})
+            </li>
+          </ul>
         </div>
 
         <!-- Submit Buttons -->
         <div class="form-actions">
-          <button type="button" class="cancel-button">Annuler</button>
-          <button type="submit" class="submit-button">
+          <button type="button" class="cancel-button" (click)="onCancel()">
+            Annuler
+          </button>
+          <button
+            type="submit"
+            class="submit-button"
+            [disabled]="!isFormValid() || isSubmitting"
+          >
             <svg
+              *ngIf="!isSubmitting"
               width="16"
               height="16"
               viewBox="0 0 24 24"
@@ -122,11 +276,120 @@
               <path d="m22 2-7 20-4-9-9-4Z" />
               <path d="M22 2 11 13" />
             </svg>
-
-            Soumettre
+            <span *ngIf="isSubmitting">Envoi en cours...</span>
+            <span *ngIf="!isSubmitting">Soumettre</span>
           </button>
         </div>
       </form>
+
+      <!-- Affichage des données soumises -->
+      <div
+        class="values-display"
+        *ngIf="showValues && submittedData"
+        style="
+          margin-top: 2rem;
+          padding: 1.5rem;
+          background: #f8f9fa;
+          border-radius: 8px;
+        "
+      >
+        <h3 style="color: #333; margin-bottom: 1rem">📋 Données soumises :</h3>
+
+        <div style="margin-bottom: 1rem">
+          <strong>Contact :</strong> {{ submittedData.contact }}
+        </div>
+        <div style="margin-bottom: 1rem">
+          <strong>Nom et Prénoms :</strong> {{ submittedData.fullName }}
+        </div>
+        <div style="margin-bottom: 1rem">
+          <strong>Libellé du thème :</strong> {{ submittedData.themeTitle }}
+        </div>
+        <div style="margin-bottom: 1rem">
+          <strong>Problématique :</strong><br />
+          <p
+            style="
+              margin: 0.5rem 0;
+              padding: 0.5rem;
+              background: white;
+              border-radius: 4px;
+            "
+          >
+            {{ submittedData.problematic }}
+          </p>
+        </div>
+        <div style="margin-bottom: 1rem">
+          <strong>Objectif général :</strong><br />
+          <p
+            style="
+              margin: 0.5rem 0;
+              padding: 0.5rem;
+              background: white;
+              border-radius: 4px;
+            "
+          >
+            {{ submittedData.generalObjective }}
+          </p>
+        </div>
+        <div style="margin-bottom: 1rem">
+          <strong>Objectifs spécifiques :</strong><br />
+          <p
+            style="
+              margin: 0.5rem 0;
+              padding: 0.5rem;
+              background: white;
+              border-radius: 4px;
+              white-space: pre-line;
+            "
+          >
+            {{ submittedData.specificObjectives }}
+          </p>
+        </div>
+        <div style="margin-bottom: 1rem">
+          <strong>Résultats attendus :</strong><br />
+          <p
+            style="
+              margin: 0.5rem 0;
+              padding: 0.5rem;
+              background: white;
+              border-radius: 4px;
+            "
+          >
+            {{ submittedData.expectedResults }}
+          </p>
+        </div>
+
+        <div style="margin-top: 1.5rem">
+          <button
+            type="button"
+            (click)="hideValues()"
+            style="
+              background: #6c757d;
+              color: white;
+              border: none;
+              padding: 0.5rem 1rem;
+              border-radius: 4px;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          >
+            Masquer
+          </button>
+          <button
+            type="button"
+            (click)="resetForm()"
+            style="
+              background: #007bff;
+              color: white;
+              border: none;
+              padding: 0.5rem 1rem;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          >
+            Nouveau formulaire
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

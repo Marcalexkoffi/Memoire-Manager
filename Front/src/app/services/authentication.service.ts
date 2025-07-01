@@ -17,4 +17,10 @@ export class AuthenticationService {
   login(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login`, data);
   }
+  submit(data: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseUrl}/workbench/student-submit`,
+      data
+    );
+  }
 }
