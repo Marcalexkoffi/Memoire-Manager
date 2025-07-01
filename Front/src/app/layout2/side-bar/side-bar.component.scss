@@ -1,0 +1,91 @@
+// Sidebar
+.sidebar {
+  width: 280px;
+  background: var(--white);
+  border-right: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+
+  .sidebar-header {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+
+    .professor-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .professor-avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-blue),
+          var(--secondary-blue)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+      }
+
+      .professor-details {
+        h4 {
+          margin: 0;
+          color: var(--text-dark);
+          font-size: 1.1rem;
+        }
+
+        .professor-role {
+          color: var(--text-muted);
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+
+    li {
+      margin: 0;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.875rem 1.5rem;
+        text-decoration: none;
+        color: var(--text-muted);
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+
+        .icon {
+          width: 20px;
+          display: flex;
+          justify-content: center;
+          font-size: 1.1rem;
+        }
+
+        .text {
+          font-weight: 500;
+        }
+
+        &:hover {
+          background: rgba(74, 111, 165, 0.05);
+          color: var(--primary-blue);
+        }
+
+        &.active {
+          background: rgba(74, 111, 165, 0.1);
+          color: var(--primary-blue);
+          border-left-color: var(--primary-blue);
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
