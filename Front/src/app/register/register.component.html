@@ -101,13 +101,13 @@
               <label for="contact" class="form-label">Contact</label>
               <input
                 id="contact"
-                type="contact"
+                type="text"
                 class="form-input"
                 [class.error]="
                   hasError('contact', 'required') ||
                   hasError('contact', 'contact')
                 "
-                placeholder="0000000000"
+                placeholder="+225 01 02 03 04 05"
                 formControlName="contact"
               />
               <div

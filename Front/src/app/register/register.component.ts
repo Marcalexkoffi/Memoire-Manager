@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
       {
         fullName: ['', [Validators.required, Validators.minLength(2)]],
         email: ['', [Validators.required, Validators.email]],
+        contact: ['', [Validators.required, Validators.minLength(10)]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
         acceptTerms: [false, [Validators.requiredTrue]],
@@ -83,6 +84,7 @@ export class RegisterComponent implements OnInit {
   // Méthode pour soumettre le formulaire
   onSubmit(): void {
     if (this.registerForm.valid && this.selectedUserType) {
+     // this.submittedData = this.registerForm.getRawValue()
       this.submittedData = {
         nom_complet: this.registerForm.get('fullName')?.value,
         email: this.registerForm.get('email')?.value,
@@ -95,10 +97,10 @@ export class RegisterComponent implements OnInit {
       // this.showValues = true;
       console.log("Données d'inscription soumises:", this.submittedData);
       //Service authentification
-      // this.authService.register(this.submittedData).subscribe({
-      //   next: (data) => console.log(data),
-      //   error: (err) => console.error(err),
-      // });
+       this.authService.register(this.submittedData).subscribe({
+         next: (data) => console.log(data),
+         error: (err) => console.error(err),
+       });
     } else {
       this.markFormGroupTouched();
       if (!this.selectedUserType) {

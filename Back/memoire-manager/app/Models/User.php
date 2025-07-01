@@ -25,6 +25,22 @@ class User extends Authenticatable
         'role'
     ];
 
+    public function memoiresSoumis()
+    {   
+        return $this->hasMany(Memoire::class, 'etudiant_id');
+    }
+
+    public function memoiresTuteur()
+    {
+        return $this->hasMany(Memoire::class, 'tuteur_id');
+    }
+
+    public function memoiresProf()
+    {
+        return $this->hasMany(Memoire::class, 'professeur_id');
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
