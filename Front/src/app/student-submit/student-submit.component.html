@@ -197,57 +197,48 @@
         </div>
 
         <!-- Debug: Affichage du statut du formulaire -->
-        <div
-          style="
-            background: #f0f0f0;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-          "
-        >
-          <p><strong>Debug Info:</strong></p>
-          <p>Formulaire valide: {{ studentForm.valid ? "OUI" : "NON" }}</p>
+        <div class="debug-info" *ngIf="studentForm">
+          <p><strong> Statut de remplissage du formulaire:</strong></p>
+          <p>Formulaire valide: {{ studentForm.valid ? " OUI" : " NON" }}</p>
           <p>Pourcentage: {{ getCompletionPercentage() }}%</p>
           <p>Statut des champs:</p>
           <ul>
             <li>
-              Contact: {{ studentForm.get("contact")?.valid ? "✅" : "❌" }} ({{
+              Contact: {{ studentForm.get("contact")?.valid ? "" : "" }} ({{
                 studentForm.get("contact")?.value || "vide"
               }})
             </li>
             <li>
-              Nom: {{ studentForm.get("fullName")?.valid ? "✅" : "❌" }} ({{
+              Nom: {{ studentForm.get("fullName")?.valid ? "" : "" }} ({{
                 studentForm.get("fullName")?.value || "vide"
               }})
             </li>
             <li>
               Thème:
-              {{ studentForm.get("themeTitle")?.valid ? "✅" : "❌" }} ({{
+              {{ studentForm.get("themeTitle")?.valid ? "" : "" }} ({{
                 studentForm.get("themeTitle")?.value || "vide"
               }})
             </li>
             <li>
               Problématique:
-              {{ studentForm.get("problematic")?.valid ? "✅" : "❌" }} ({{
+              {{ studentForm.get("problematic")?.valid ? "" : "" }} ({{
                 studentForm.get("problematic")?.value || "vide"
               }})
             </li>
             <li>
               Objectif général:
-              {{ studentForm.get("generalObjective")?.valid ? "✅" : "❌" }} ({{
+              {{ studentForm.get("generalObjective")?.valid ? "" : "" }} ({{
                 studentForm.get("generalObjective")?.value || "vide"
               }})
             </li>
             <li>
               Objectifs spécifiques:
-              {{
-                studentForm.get("specificObjectives")?.valid ? "✅" : "❌"
-              }}
+              {{ studentForm.get("specificObjectives")?.valid ? "" : "" }}
               ({{ studentForm.get("specificObjectives")?.value || "vide" }})
             </li>
             <li>
               Résultats:
-              {{ studentForm.get("expectedResults")?.valid ? "✅" : "❌" }} ({{
+              {{ studentForm.get("expectedResults")?.valid ? "" : "" }} ({{
                 studentForm.get("expectedResults")?.value || "vide"
               }})
             </li>
@@ -283,113 +274,46 @@
       </form>
 
       <!-- Affichage des données soumises -->
-      <div
-        class="values-display"
-        *ngIf="showValues && submittedData"
-        style="
-          margin-top: 2rem;
-          padding: 1.5rem;
-          background: #f8f9fa;
-          border-radius: 8px;
-        "
-      >
-        <h3 style="color: #333; margin-bottom: 1rem">📋 Données soumises :</h3>
+      <!-- <div class="values-display" *ngIf="showValues && submittedData">
+        <h3>Données soumises :</h3>
 
-        <div style="margin-bottom: 1rem">
+        <div class="value-item">
           <strong>Contact :</strong> {{ submittedData.contact }}
         </div>
-        <div style="margin-bottom: 1rem">
+        <div class="value-item">
           <strong>Nom et Prénoms :</strong> {{ submittedData.fullName }}
         </div>
-        <div style="margin-bottom: 1rem">
+        <div class="value-item">
           <strong>Libellé du thème :</strong> {{ submittedData.themeTitle }}
         </div>
-        <div style="margin-bottom: 1rem">
-          <strong>Problématique :</strong><br />
-          <p
-            style="
-              margin: 0.5rem 0;
-              padding: 0.5rem;
-              background: white;
-              border-radius: 4px;
-            "
-          >
-            {{ submittedData.problematic }}
-          </p>
+        <div class="value-item">
+          <strong>Problématique :</strong>
+          <p class="value-text">{{ submittedData.problematic }}</p>
         </div>
-        <div style="margin-bottom: 1rem">
-          <strong>Objectif général :</strong><br />
-          <p
-            style="
-              margin: 0.5rem 0;
-              padding: 0.5rem;
-              background: white;
-              border-radius: 4px;
-            "
-          >
-            {{ submittedData.generalObjective }}
-          </p>
+        <div class="value-item">
+          <strong>Objectif général :</strong>
+          <p class="value-text">{{ submittedData.generalObjective }}</p>
         </div>
-        <div style="margin-bottom: 1rem">
-          <strong>Objectifs spécifiques :</strong><br />
-          <p
-            style="
-              margin: 0.5rem 0;
-              padding: 0.5rem;
-              background: white;
-              border-radius: 4px;
-              white-space: pre-line;
-            "
-          >
+        <div class="value-item">
+          <strong>Objectifs spécifiques :</strong>
+          <p class="value-text pre-line">
             {{ submittedData.specificObjectives }}
           </p>
         </div>
-        <div style="margin-bottom: 1rem">
-          <strong>Résultats attendus :</strong><br />
-          <p
-            style="
-              margin: 0.5rem 0;
-              padding: 0.5rem;
-              background: white;
-              border-radius: 4px;
-            "
-          >
-            {{ submittedData.expectedResults }}
-          </p>
+        <div class="value-item">
+          <strong>Résultats attendus :</strong>
+          <p class="value-text">{{ submittedData.expectedResults }}</p>
         </div>
 
-        <div style="margin-top: 1.5rem">
-          <button
-            type="button"
-            (click)="hideValues()"
-            style="
-              background: #6c757d;
-              color: white;
-              border: none;
-              padding: 0.5rem 1rem;
-              border-radius: 4px;
-              margin-right: 0.5rem;
-              cursor: pointer;
-            "
-          >
+        <div class="values-actions">
+          <button type="button" (click)="hideValues()" class="btn-secondary">
             Masquer
           </button>
-          <button
-            type="button"
-            (click)="resetForm()"
-            style="
-              background: #007bff;
-              color: white;
-              border: none;
-              padding: 0.5rem 1rem;
-              border-radius: 4px;
-              cursor: pointer;
-            "
-          >
+          <button type="button" (click)="resetForm()" class="btn-primary">
             Nouveau formulaire
           </button>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

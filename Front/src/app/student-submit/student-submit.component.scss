@@ -371,3 +371,43 @@
 .form-group:nth-child(7) {
   animation-delay: 0.7s;
 }
+.debug-info {
+  background: #f0f0f0;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-left: 6px solid #adb5bd;
+  border-radius: 8px;
+  color: black;
+  font-size: 0.95rem;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+  animation: fadeInUp 0.5s ease-out;
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+
+    li {
+      margin-bottom: 0.4rem;
+      list-style-type: disc;
+
+      &::marker {
+        color: #4a6fa5;
+      }
+
+      // Si tu veux un effet visuel coloré selon la validité
+      &.valid {
+        color: #28a745;
+        font-weight: 500;
+      }
+
+      &.invalid {
+        color: #dc3545;
+      }
+    }
+  }
+}
