@@ -11,6 +11,7 @@ import { Main_Component } from './layout2/main/main.component';
 import { TutorComponent } from './tutor/tutor.component';
 import { RegisterComponent } from './register/register.component';
 import { ThemesValidesComponent } from './themes-valides/themes-valides.component';
+import { PropositionsComponent } from './propositions/propositions.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +54,10 @@ export const routes: Routes = [
       {
         path: 'student-submit',
         component: StudentSubmitComponent,
+      },
+      {
+        path: 'proposal-list',
+        component: PropositionsComponent,
       },
     ],
   },

@@ -142,7 +142,11 @@
     border-collapse: collapse;
 
     thead {
-      background: rgba(74, 111, 165, 0.05);
+      background: linear-gradient(
+        135deg,
+        var(--primary-blue),
+        var(--secondary-blue)
+      );
       color: white;
 
       th {

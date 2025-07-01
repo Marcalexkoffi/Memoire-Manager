@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { TopBarrComponent } from '../top-bar/top-bar.component';
 import { SideBarrComponent } from '../side-bar/side-bar.component';
 import { RouterModule } from '@angular/router';
+import { PropositionsComponent } from '../../propositions/propositions.component';
+PropositionsComponent;
 @Component({
   selector: 'app-main',
   imports: [TopBarrComponent, SideBarrComponent, RouterModule],
