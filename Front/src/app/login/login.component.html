@@ -7,7 +7,7 @@
     </div>
 
     <!-- Login Form -->
-    <form (ngSubmit)="redirection()" class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="redirection()" class="login-form">
       <!-- User Type Selection -->
       <div class="form-group">
         <label class="form-label">Vous êtes</label>
@@ -44,7 +44,7 @@
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="login-btn">
+      <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
         <span>Se connecter</span>
       </button>
     </form>
