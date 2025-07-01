@@ -11,13 +11,13 @@
       </div>
 
       <div class="navbar-nav">
-        <a href="#" class="nav-link active">Accueil</a>
+        <a [routerLink]="'/home'" class="nav-link active">Accueil</a>
         <a (click)="scrollToSection('services')" class="nav-link">Services</a>
         <a (click)="scrollToSection('features')" class="nav-link"
           >Fonctionnalités</a
         >
-        <a (click)="navigateToAbout()" class="nav-link">À propos</a>
         <a (click)="scrollToSection('contact')" class="nav-link">Contact</a>
+        <a [routerLink]="'/login'" class="nav-link">Se connecter</a>
         <button class="share-btn">
           <i class="fas fa-share-alt"></i>
         </button>

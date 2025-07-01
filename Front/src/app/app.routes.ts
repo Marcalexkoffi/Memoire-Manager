@@ -4,7 +4,6 @@ import { StudentDashboadComponent } from './student-dashboad/student-dashboad.co
 import { ProfessorDashboadComponent } from './professor-dashboad/professor-dashboad.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './layout/main/main.component';
 import { Main_Component } from './layout2/main/main.component';
@@ -22,10 +21,6 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-  },
-  {
-    path: 'about',
-    component: AboutComponent,
   },
   {
     path: 'login',
