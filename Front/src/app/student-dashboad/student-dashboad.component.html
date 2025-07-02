@@ -37,7 +37,7 @@
         <option value="all">Tous les domaines</option>
         <option value="Informatique">Informatique</option>
         <option value="Mathématiques">Mathématiques</option>
-        <option value="Physique">Physique</option>
+        <option value="Marketing">Marketing</option>
       </select>
     </div>
   </div>
@@ -66,9 +66,13 @@
             <span class="status-badge"> </span>
           </td>
           <td class="actions-cell">
-            <button class="action-btn view-btn">Voir</button>
-            <button class="action-btn edit-btn">Modifier</button>
-            <button class="action-btn download-btn">Télécharger</button>
+            <button class="action-btn view-btn">
+              <a
+                [routerLink]="'/proposal-list'"
+                style="color: white; text-decoration: none"
+                >Voir</a
+              >
+            </button>
           </td>
         </tr>
       </tbody>
