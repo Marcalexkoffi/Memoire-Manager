@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-professor-dashboad',
   imports: [],
   templateUrl: './professor-dashboad.component.html',
-  styleUrl: './professor-dashboad.component.scss'
+  styleUrl: './professor-dashboad.component.scss',
 })
-export class ProfessorDashboadComponent {
-
-}
+export class ProfessorDashboadComponent {}
