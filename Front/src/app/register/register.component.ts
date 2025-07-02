@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
   };
 
   constructor(
+    private newRouter: Router,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService
   ) {}
@@ -97,10 +98,13 @@ export class RegisterComponent implements OnInit {
       // this.showValues = true;
       console.log("Données d'inscription soumises:", this.submittedData);
       //Service authentification
-       this.authService.register(this.submittedData).subscribe({
-         next: (data) => console.log(data),
-         error: (err) => console.error(err),
-       });
+      this.authService.register(this.submittedData).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.newRouter.navigate(['/login']);
+        },
+        error: (err) => console.error(err),
+      });
     } else {
       this.markFormGroupTouched();
       if (!this.selectedUserType) {
