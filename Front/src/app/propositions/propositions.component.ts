@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-propositions',
   imports: [],
   templateUrl: './propositions.component.html',
-  styleUrl: './propositions.component.scss'
+  styleUrl: './propositions.component.scss',
 })
-export class PropositionsComponent {
-
-}
+export class PropositionsComponent {}
