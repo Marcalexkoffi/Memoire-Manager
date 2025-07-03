@@ -27,7 +27,7 @@
       .logo-icon {
         width: 32px;
         height: 32px;
-        background: linear-gradient(135deg, #4a6fa5 0%, #6b8ebb 100%);
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
         border-radius: 8px;
       }
 
@@ -51,7 +51,7 @@
 
   .back-btn {
     background: transparent;
-    border: 1px solid #4a6fa5;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 6px;
@@ -102,7 +102,7 @@
     .user-icon {
       width: 80px;
       height: 80px;
-      background: linear-gradient(135deg, #4a6fa5 0%, #6b8ebb 100%);
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -228,7 +228,7 @@
       right: 0.75rem;
       width: 24px;
       height: 24px;
-      background: #4a6fa5;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
       color: white;
       border-radius: 50%;
       display: flex;
@@ -393,7 +393,7 @@
 .register-btn {
   width: 100%;
   padding: 0.875rem 1rem;
-  background: linear-gradient(135deg, #4a6fa5 0%, #6b8ebb 100%);
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: white;
   border: none;
   border-radius: 8px;
@@ -457,11 +457,7 @@
 // Statistics Section
 .stats-section {
   .stats-card {
-    background: linear-gradient(
-      135deg,
-      var(--primary-blue),
-      var(--secondary-blue)
-    );
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
     border-radius: 20px;
     padding: 2rem;
     color: white;
