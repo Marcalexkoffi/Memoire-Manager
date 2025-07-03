@@ -1,36 +1,419 @@
-<!-- Liste des propositions -->
-<div class="proposals-section">
-  <div class="proposals-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Étudiant</th>
-          <th>Titre</th>
-          <th>Domaine</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="student-cell">
+<div class="page-container">
+  <!-- Formes géométriques décoratives -->
+  <div class="bg-shape-1"></div>
+  <div class="bg-shape-2"></div>
+  <div class="bg-shape-3"></div>
+  <div class="bg-shape-4"></div>
+
+  <div class="content-wrapper">
+    <!-- Header -->
+    <div class="page-header animate-fade-up">
+      <div class="header-content">
+        <h1>Propositions Validées</h1>
+        <p>Gérez et consultez toutes les propositions approuvées</p>
+      </div>
+      <div class="header-actions"></div>
+    </div>
+
+    <!-- Statistiques des propositions validées -->
+    <div class="stats-grid animate-fade-up animate-delay-1">
+      <div class="stat-card stat-total">
+        <div class="stat-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ validatedStats.total }}</h3>
+          <p>Total validées</p>
+        </div>
+      </div>
+
+      <div class="stat-card stat-recent">
+        <div class="stat-icon">
+          <i class="fas fa-calendar-week"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ validatedStats.thisWeek }}</h3>
+          <p>Cette semaine</p>
+        </div>
+      </div>
+
+      <div class="stat-card stat-assigned">
+        <div class="stat-icon">
+          <i class="fas fa-user-graduate"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ validatedStats.assigned }}</h3>
+          <p>Étudiants assignés</p>
+        </div>
+      </div>
+
+      <div class="stat-card stat-domains">
+        <div class="stat-icon">
+          <i class="fas fa-tags"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ validatedStats.domains }}</h3>
+          <p>Domaines couverts</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtres et recherche -->
+    <div class="filter-section animate-fade-up animate-delay-2">
+      <div class="filter-header">
+        <h3>
+          <i class="fas fa-filter"></i>
+          Filtrer les propositions
+        </h3>
+        <div class="filter-controls">
+          <select
+            class="filter-select"
+            (change)="onDomainFilterChange($event)"
+            [value]="domainFilter"
+          >
+            <option value="all">Tous les domaines</option>
+            <option value="Informatique">Informatique</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Communication">Communication</option>
+            <option value="Finance">Finance</option>
+            <option value="Administration">Administration</option>
+          </select>
+
+          <select
+            class="filter-select"
+            (change)="onDateFilterChange($event)"
+            [value]="dateFilter"
+          >
+            <option value="all">Toutes les dates</option>
+            <option value="week">Cette semaine</option>
+            <option value="month">Ce mois</option>
+            <option value="semester">Ce semestre</option>
+          </select>
+
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Rechercher par étudiant, titre..."
+              (input)="onSearchChange($event)"
+              [value]="searchTerm"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table des propositions validées -->
+    <div class="proposals-section animate-fade-up animate-delay-3">
+      <div class="section-header">
+        <h3>
+          <i class="fas fa-list"></i>
+          Liste des propositions validées ({{ filteredProposals.length }})
+        </h3>
+        <div class="view-options">
+          <button
+            class="view-btn"
+            [class.active]="viewMode === 'table'"
+            (click)="setViewMode('table')"
+          >
+            <i class="fas fa-table"></i>
+            Tableau
+          </button>
+          <button
+            class="view-btn"
+            [class.active]="viewMode === 'cards'"
+            (click)="setViewMode('cards')"
+          >
+            <i class="fas fa-th-large"></i>
+            Cartes
+          </button>
+        </div>
+      </div>
+
+      <!-- Vue tableau -->
+      <div class="table-container" *ngIf="viewMode === 'table'">
+        <table class="proposals-table">
+          <thead>
+            <tr>
+              <th>
+                <button class="sort-btn" (click)="sortBy('student')">
+                  Étudiant
+                  <i
+                    class="fas fa-sort"
+                    [class.fa-sort-up]="
+                      sortField === 'student' && sortDirection === 'asc'
+                    "
+                    [class.fa-sort-down]="
+                      sortField === 'student' && sortDirection === 'desc'
+                    "
+                  ></i>
+                </button>
+              </th>
+              <th>
+                <button class="sort-btn" (click)="sortBy('title')">
+                  Titre du thème
+                  <i
+                    class="fas fa-sort"
+                    [class.fa-sort-up]="
+                      sortField === 'title' && sortDirection === 'asc'
+                    "
+                    [class.fa-sort-down]="
+                      sortField === 'title' && sortDirection === 'desc'
+                    "
+                  ></i>
+                </button>
+              </th>
+              <th>
+                <button class="sort-btn" (click)="sortBy('domain')">
+                  Domaine
+                  <i
+                    class="fas fa-sort"
+                    [class.fa-sort-up]="
+                      sortField === 'domain' && sortDirection === 'asc'
+                    "
+                    [class.fa-sort-down]="
+                      sortField === 'domain' && sortDirection === 'desc'
+                    "
+                  ></i>
+                </button>
+              </th>
+              <th>
+                <button class="sort-btn" (click)="sortBy('validatedDate')">
+                  Date validation
+                  <i
+                    class="fas fa-sort"
+                    [class.fa-sort-up]="
+                      sortField === 'validatedDate' && sortDirection === 'asc'
+                    "
+                    [class.fa-sort-down]="
+                      sortField === 'validatedDate' && sortDirection === 'desc'
+                    "
+                  ></i>
+                </button>
+              </th>
+              <th>Progression</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let proposal of filteredProposals;
+                trackBy: trackByProposal
+              "
+              class="proposal-row"
+            >
+              <td class="student-cell">
+                <div class="student-info">
+                  <div class="student-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                  </div>
+                  <div class="student-details">
+                    <strong>{{ proposal.student.name }}</strong>
+                    <small>{{ proposal.student.email }}</small>
+                    <div class="student-meta">
+                      <span class="student-id"
+                        >ID: {{ proposal.student.id }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <td class="title-cell">
+                <div class="proposal-title">
+                  <strong>{{ proposal.title }}</strong>
+                  <p class="proposal-description">{{ proposal.description }}</p>
+                  <div class="proposal-meta">
+                    <span
+                      class="validation-comment"
+                      *ngIf="proposal.validationComment"
+                    >
+                      <i class="fas fa-comment"></i>
+                      {{ proposal.validationComment | slice : 0 : 50
+                      }}{{
+                        proposal.validationComment.length > 50 ? "..." : ""
+                      }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+
+              <td class="domain-cell">
+                <span class="domain-badge" [attr.data-domain]="proposal.domain">
+                  {{ proposal.domain }}
+                </span>
+              </td>
+
+              <td class="date-cell">
+                <div class="date-info">
+                  <strong>{{
+                    proposal.validatedDate | date : "dd/MM/yyyy"
+                  }}</strong>
+                  <small>{{ proposal.validatedDate | date : "HH:mm" }}</small>
+                  <div class="time-since">
+                    {{ getTimeSince(proposal.validatedDate) }}
+                  </div>
+                </div>
+              </td>
+
+              <td class="progress-cell">
+                <div class="progress-info">
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill"
+                      [style.width.%]="proposal.progress"
+                    ></div>
+                  </div>
+                  <span class="progress-text">{{ proposal.progress }}%</span>
+                  <small class="progress-status">{{
+                    getProgressStatus(proposal.progress)
+                  }}</small>
+                </div>
+              </td>
+
+              <td class="actions-cell">
+                <div class="action-buttons">
+                  <button
+                    class="action-btn message-btn"
+                    (click)="sendMessage(proposal)"
+                    title="Contacter l'étudiant"
+                  >
+                    <i class="fas fa-envelope"></i>
+                    Message
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Vue cartes -->
+      <div class="cards-container" *ngIf="viewMode === 'cards'">
+        <div
+          class="proposal-card"
+          *ngFor="let proposal of filteredProposals; trackBy: trackByProposal"
+        >
+          <div class="card-header">
             <div class="student-info">
               <div class="student-avatar">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user-graduate"></i>
               </div>
               <div class="student-details">
-                <strong>proposal.student.name </strong>
-                <small> proposal.student.email </small>
+                <strong>{{ proposal.student.name }}</strong>
+                <small>{{ proposal.student.email }}</small>
               </div>
             </div>
-          </td>
-          <td class="title-cell">
-            <div class="proposal-title">
-              <strong>proposal.title </strong>
-              <p class="proposal-description">proposal.description</p>
+            <span class="domain-badge" [attr.data-domain]="proposal.domain">
+              {{ proposal.domain }}
+            </span>
+          </div>
+
+          <div class="card-content">
+            <h4>{{ proposal.title }}</h4>
+            <p>{{ proposal.description }}</p>
+
+            <div class="card-meta">
+              <div class="validation-date">
+                <i class="fas fa-check-circle"></i>
+                Validé le {{ proposal.validatedDate | date : "dd/MM/yyyy" }}
+              </div>
+
+              <div class="progress-info">
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="proposal.progress"
+                  ></div>
+                </div>
+                <span
+                  >{{ proposal.progress }}% -
+                  {{ getProgressStatus(proposal.progress) }}</span
+                >
+              </div>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+
+          <div class="card-actions">
+            <button class="action-btn view-btn" (click)="viewDetails(proposal)">
+              <i class="fas fa-eye"></i>
+              Détails
+            </button>
+            <button
+              class="action-btn download-btn"
+              (click)="downloadProposal(proposal)"
+            >
+              <i class="fas fa-download"></i>
+              PDF
+            </button>
+            <button
+              class="action-btn message-btn"
+              (click)="sendMessage(proposal)"
+            >
+              <i class="fas fa-envelope"></i>
+              Message
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message si aucune proposition -->
+      <div class="no-proposals" *ngIf="filteredProposals.length === 0">
+        <div class="no-proposals-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h4>Aucune proposition trouvée</h4>
+        <p>
+          Aucune proposition validée ne correspond aux critères de recherche.
+        </p>
+        <button class="harmony-btn btn-secondary" (click)="clearFilters()">
+          <i class="fas fa-times"></i>
+          Effacer les filtres
+        </button>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div
+      class="pagination-section animate-fade-up animate-delay-4"
+      *ngIf="filteredProposals.length > 0"
+    >
+      <div class="pagination-info">
+        Affichage de {{ getStartIndex() + 1 }} à {{ getEndIndex() }} sur
+        {{ filteredProposals.length }} propositions
+      </div>
+      <div class="pagination-controls">
+        <button
+          class="pagination-btn"
+          [disabled]="currentPage === 1"
+          (click)="goToPage(currentPage - 1)"
+        >
+          <i class="fas fa-chevron-left"></i>
+          Précédent
+        </button>
+
+        <div class="page-numbers">
+          <button
+            *ngFor="let page of getPageNumbers()"
+            class="page-btn"
+            [class.active]="page === currentPage"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        </div>
+
+        <button
+          class="pagination-btn"
+          [disabled]="currentPage === getTotalPages()"
+          (click)="goToPage(currentPage + 1)"
+        >
+          Suivant
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

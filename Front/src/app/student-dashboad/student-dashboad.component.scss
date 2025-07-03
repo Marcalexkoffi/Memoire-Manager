@@ -1,4 +1,70 @@
 // Dashboard Header
+
+/* Container principal avec fond harmonisé */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  position: relative;
+  overflow-x: hidden;
+  padding: 2rem;
+
+  // Formes géométriques décoratives
+  &::before {
+    content: "";
+    position: fixed;
+    top: 15%;
+    left: 8%;
+    width: 180px;
+    height: 180px;
+    background: rgba(79, 70, 229, 0.08);
+    border-radius: 25px;
+    transform: rotate(35deg);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // &::after {
+  //   content: "";
+  //   position: fixed;
+  //   bottom: 25%;
+  //   right: 12%;
+  //   width: 140px;
+  //   height: 140px;
+  //   background: rgba(255, 255, 255, 0.7);
+  //   border-radius: 50%;
+  //   z-index: 0;
+  //   pointer-events: none;
+  // }
+}
+
+// Formes géométriques supplémentaires
+.page-container {
+  .bg-shape-1 {
+    position: fixed;
+    top: 60%;
+    left: 5%;
+    width: 100px;
+    height: 100px;
+    background: rgba(79, 70, 229, 0.06);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-shape-2 {
+    position: fixed;
+    top: 30%;
+    right: 25%;
+    width: 160px;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    transform: rotate(20deg);
+    z-index: 0;
+    pointer-events: none;
+  }
+}
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
@@ -146,6 +212,7 @@
       margin: 0;
       font-size: 1.5rem;
       font-weight: 600;
+      color: white;
     }
 
     .filters {
@@ -436,76 +503,5 @@
     td {
       padding: 1rem 0.5rem;
     }
-  }
-}
-/* Reset et base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Container principal avec fond harmonisé */
-.page-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  position: relative;
-  overflow-x: hidden;
-  padding: 2rem;
-
-  // Formes géométriques décoratives
-  &::before {
-    content: "";
-    position: fixed;
-    top: 15%;
-    left: 8%;
-    width: 180px;
-    height: 180px;
-    background: rgba(79, 70, 229, 0.08);
-    border-radius: 25px;
-    transform: rotate(35deg);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: "";
-    position: fixed;
-    bottom: 25%;
-    right: 12%;
-    width: 140px;
-    height: 140px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    z-index: 0;
-    pointer-events: none;
-  }
-}
-
-// Formes géométriques supplémentaires
-.page-container {
-  .bg-shape-1 {
-    position: fixed;
-    top: 60%;
-    left: 5%;
-    width: 100px;
-    height: 100px;
-    background: rgba(79, 70, 229, 0.06);
-    border-radius: 50%;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .bg-shape-2 {
-    position: fixed;
-    top: 30%;
-    right: 25%;
-    width: 160px;
-    height: 160px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    transform: rotate(20deg);
-    z-index: 0;
-    pointer-events: none;
   }
 }
