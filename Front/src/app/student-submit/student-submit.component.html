@@ -49,47 +49,6 @@
             [formGroup]="studentForm"
             (ngSubmit)="onSubmit()"
           >
-            <!-- Contact -->
-            <div class="form-group">
-              <label for="contact" class="form-label">Contact *</label>
-              <input
-                id="contact"
-                type="text"
-                class="form-input"
-                placeholder="Votre contact (téléphone, email, etc.)"
-                formControlName="contact"
-              />
-              <div
-                class="error-message"
-                *ngIf="
-                  studentForm.get('contact')?.invalid &&
-                  studentForm.get('contact')?.touched
-                "
-              >
-                Le contact est requis
-              </div>
-            </div>
-
-            <!-- Nom et Prénoms -->
-            <div class="form-group">
-              <label for="fullName" class="form-label">Nom et Prénoms *</label>
-              <input
-                id="fullName"
-                type="text"
-                class="form-input"
-                placeholder="Jean Dupont"
-                formControlName="fullName"
-              />
-              <div
-                class="error-message"
-                *ngIf="
-                  studentForm.get('fullName')?.invalid &&
-                  studentForm.get('fullName')?.touched
-                "
-              >
-                Le nom et prénoms sont requis
-              </div>
-            </div>
             <!-- Domaine -->
             <div class="form-group">
               <label for="domaine" class="form-label">Domaine *</label>
@@ -225,16 +184,6 @@
               <p>Pourcentage: {{ getCompletionPercentage() }}%</p>
               <p>Statut des champs:</p>
               <ul>
-                <li>
-                  Contact: {{ studentForm.get("contact")?.valid ? "" : "" }} ({{
-                    studentForm.get("contact")?.value || "vide"
-                  }})
-                </li>
-                <li>
-                  Nom: {{ studentForm.get("fullName")?.valid ? "" : "" }} ({{
-                    studentForm.get("fullName")?.value || "vide"
-                  }})
-                </li>
                 <li>
                   Domaine: {{ studentForm.get("domaine")?.valid ? "" : "" }} ({{
                     studentForm.get("domaine")?.value || "vide"
