@@ -11,6 +11,7 @@ class Memoire extends Model
         'problematique',
         'objectif_general',
         'objectif_specifique',
+        'domaine',
         'resultat_attendu',
         'etat_validation',
         'professeur_id',
