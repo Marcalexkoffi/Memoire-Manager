@@ -35,8 +35,12 @@ export class LoginComponent {
     console.log('Les données soumises :', recupData);
     this.authService.login(recupData).subscribe({
       next: (data) => {
+        if (data?.user?.role == 'Etudiant') {
+          this.newRouter.navigate(['/workbench/student-dashboard']);
+        } else {
+          this.newRouter.navigate(['/teacher/professor-dashboard']);
+        }
         console.log(data);
-        this.newRouter.navigate(['/workbench/student-dashboard']);
       },
 
       error: (err) => console.error(err),

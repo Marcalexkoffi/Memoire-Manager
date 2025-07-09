@@ -13,7 +13,9 @@ export class AuthenticationService {
   register(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/register`, data);
   }
-
+  deconnexion(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/home`, data);
+  }
   login(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login`, data);
   }
