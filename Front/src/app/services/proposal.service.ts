@@ -22,10 +22,6 @@ export class ProposalService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProposals(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/proposals`);
-  }
-
   validateProposal(id: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/proposals/${id}/validate`, {});
   }

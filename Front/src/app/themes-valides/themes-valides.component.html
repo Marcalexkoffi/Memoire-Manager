@@ -261,7 +261,7 @@
                 <div class="action-buttons">
                   <button
                     class="action-btn message-btn"
-                    (click)="sendMessage(proposal)"
+                    (click)="openTutorSelector(proposal)"
                     title="Contacter l'étudiant"
                   >
                     <i class="fas fa-envelope"></i>
@@ -272,10 +272,30 @@
             </tr>
           </tbody>
         </table>
-      </div>
 
-      <!-- Vue cartes -->
-      <div class="cards-container" *ngIf="viewMode === 'cards'">
+        <!-- 🧠 MODALE DE SÉLECTION DE TUTEUR -->
+        <div class="tutor-modal" *ngIf="selectedProposal">
+          <div class="tutor-modal-content">
+            <h3>Assigner un tuteur pour "{{ selectedProposal.title }}"</h3>
+            <p>Sélectionnez un professeur :</p>
+
+            <ul class="tutor-list">
+              <li *ngFor="let prof of availableTutors">
+                <span>{{ prof.name }} ({{ prof.email }})</span>
+                <button (click)="assignTutor(selectedProposal.id, prof.id)">
+                  Assigner
+                </button>
+              </li>
+            </ul>
+
+            <button class="btn-close" (click)="selectedProposal = null">
+              Fermer
+            </button>
+          </div>
+        </div>
+
+        <!-- Vue cartes -->
+        <!-- <div class="cards-container" *ngIf="viewMode === 'cards'"> -->
         <div
           class="proposal-card"
           *ngFor="let proposal of filteredProposals; trackBy: trackByProposal"
