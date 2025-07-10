@@ -160,11 +160,7 @@
                     class="action-buttons"
                     *ngIf="canModifyProposal(proposal.status)"
                   >
-                    <button
-                      class="btn btn-success btn-sm"
-                      title="Valider"
-                      (click)="validateProposal(proposal.id)"
-                    >
+                    <button class="btn btn-success btn-sm" title="Valider">
                       <i class="fas fa-check"></i>
                       Valider
                     </button>
@@ -230,7 +226,6 @@
                     <div class="comment-actions">
                       <button
                         class="btn btn-danger btn-sm"
-                        (click)="confirmRejection(proposal.id)"
                         [disabled]="
                           !comments[proposal.id] ||
                           comments[proposal.id].trim() === ''
@@ -242,7 +237,6 @@
 
                       <button
                         class="btn btn-success btn-sm"
-                        (click)="validateProposal(proposal.id)"
                         *ngIf="
                           comments[proposal.id] &&
                           comments[proposal.id].trim() !== ''

@@ -76,209 +76,196 @@ export class ProfessorDashboadComponent implements OnInit {
     });
   }
 
-  //   updateStatistics() {
-  //     this.statistics.total = this.proposals.length;
-  //     this.statistics.pending = this.proposals.filter(
-  //       (p) => p.status === 'pending'
-  //     ).length;
-  //     this.statistics.validated = this.proposals.filter(
-  //       (p) => p.status === 'validated'
-  //     ).length;
-  //     this.statistics.rejected = this.proposals.filter(
-  //       (p) => p.status === 'rejected'
-  //     ).length;
+  applyFilters() {
+    this.filteredProposals = this.proposals.filter((proposal) => {
+      const matchesStatus =
+        this.statusFilter === 'all' || proposal.status === this.statusFilter;
+      const matchesDomain =
+        this.domainFilter === 'all' || proposal.domain === this.domainFilter;
+      const matchesSearch =
+        this.searchTerm === '' ||
+        proposal.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        proposal.student.name
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase()) ||
+        proposal.description
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase());
+
+      return matchesStatus && matchesDomain && matchesSearch;
+    });
+  }
+
+  onStatusFilterChange(event: any) {
+    this.statusFilter = event.target.value;
+    this.applyFilters();
+  }
+
+  onDomainFilterChange(event: any) {
+    this.domainFilter = event.target.value;
+    this.applyFilters();
+  }
+
+  onSearchChange(event: any) {
+    this.searchTerm = event.target.value;
+    this.applyFilters();
+  }
+
+  // validateProposal(proposalId: string) {
+  //   const proposal = this.proposals.find((p) => p.id === proposalId);
+  //   if (!proposal || proposal.status !== 'pending') return;
+
+  //   this.proposalService.validateProposal(proposalId).subscribe({
+  //     next: () => {
+  //       proposal.status = 'validated';
+  //       this.updateStatistics();
+  //       this.applyFilters();
+  //       this.addActivity(
+  //         'validation',
+  //         `Proposition "${proposal.title}" validée pour ${proposal.student.name}`
+  //       );
+  //       this.hideCommentSection(proposalId);
+  //       this.notifyStudent(proposal.student, 'validation', proposal.title);
+  //     },
+  //     error: (err) => {
+  //       console.error('Erreur lors de la validation', err);
+  //     },
+  //   });
+  // }
+
+  // rejectProposal(proposalId: string) {
+  //   const comment = this.comments[proposalId];
+  //   if (!comment || comment.trim() === '') {
+  //     alert('Un commentaire est obligatoire pour rejeter une proposition.');
+  //     return;
   //   }
 
-  //   applyFilters() {
-  //     this.filteredProposals = this.proposals.filter((proposal) => {
-  //       const matchesStatus =
-  //         this.statusFilter === 'all' || proposal.status === this.statusFilter;
-  //       const matchesDomain =
-  //         this.domainFilter === 'all' || proposal.domain === this.domainFilter;
-  //       const matchesSearch =
-  //         this.searchTerm === '' ||
-  //         proposal.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-  //         proposal.student.name
-  //           .toLowerCase()
-  //           .includes(this.searchTerm.toLowerCase()) ||
-  //         proposal.description
-  //           .toLowerCase()
-  //           .includes(this.searchTerm.toLowerCase());
+  //   const proposal = this.proposals.find((p) => p.id === proposalId);
+  //   if (!proposal || proposal.status !== 'pending') return;
 
-  //       return matchesStatus && matchesDomain && matchesSearch;
-  //     });
-  //   }
-
-  //   onStatusFilterChange(event: any) {
-  //     this.statusFilter = event.target.value;
-  //     this.applyFilters();
-  //   }
-
-  //   onDomainFilterChange(event: any) {
-  //     this.domainFilter = event.target.value;
-  //     this.applyFilters();
-  //   }
-
-  //   onSearchChange(event: any) {
-  //     this.searchTerm = event.target.value;
-  //     this.applyFilters();
-  //   }
-
-  //   validateProposal(proposalId: string) {
-  //     const proposal = this.proposals.find((p) => p.id === proposalId);
-  //     if (!proposal || proposal.status !== 'pending') return;
-
-  //     this.proposalService.validateProposal(proposalId).subscribe({
-  //       next: () => {
-  //         proposal.status = 'validated';
-  //         this.updateStatistics();
-  //         this.applyFilters();
-  //         this.addActivity(
-  //           'validation',
-  //           `Proposition "${proposal.title}" validée pour ${proposal.student.name}`
-  //         );
-  //         this.hideCommentSection(proposalId);
-  //         this.notifyStudent(proposal.student, 'validation', proposal.title);
-  //       },
-  //       error: (err) => {
-  //         console.error('Erreur lors de la validation', err);
-  //       },
-  //     });
-  //   }
-
-  //   rejectProposal(proposalId: string) {
-  //     const comment = this.comments[proposalId];
-  //     if (!comment || comment.trim() === '') {
-  //       alert('Un commentaire est obligatoire pour rejeter une proposition.');
-  //       return;
-  //     }
-
-  //     const proposal = this.proposals.find((p) => p.id === proposalId);
-  //     if (!proposal || proposal.status !== 'pending') return;
-
-  //     this.proposalService.rejectProposal(proposalId, comment.trim()).subscribe({
-  //       next: () => {
-  //         proposal.status = 'rejected';
-  //         proposal.comment = comment.trim();
-  //         this.updateStatistics();
-  //         this.applyFilters();
-  //         this.addActivity(
-  //           'rejection',
-  //           `Proposition "${proposal.title}" rejetée pour ${proposal.student.name}`
-  //         );
-  //         this.hideCommentSection(proposalId);
-  //         this.comments[proposalId] = '';
-  //         this.notifyStudent(
-  //           proposal.student,
-  //           'rejection',
-  //           proposal.title,
-  //           comment
-  //         );
-  //       },
-  //       error: (err) => {
-  //         console.error('Erreur lors du rejet', err);
-  //       },
-  //     });
-  //   }
-
-  //   toggleCommentSection(proposalId: string) {
-  //     this.showCommentSection[proposalId] = !this.showCommentSection[proposalId];
-  //     if (this.showCommentSection[proposalId] && !this.comments[proposalId]) {
+  //   this.proposalService.rejectProposal(proposalId, comment.trim()).subscribe({
+  //     next: () => {
+  //       proposal.status = 'rejected';
+  //       proposal.comment = comment.trim();
+  //       this.updateStatistics();
+  //       this.applyFilters();
+  //       this.addActivity(
+  //         'rejection',
+  //         `Proposition "${proposal.title}" rejetée pour ${proposal.student.name}`
+  //       );
+  //       this.hideCommentSection(proposalId);
   //       this.comments[proposalId] = '';
-  //     }
-  //   }
+  //       this.notifyStudent(
+  //         proposal.student,
+  //         'rejection',
+  //         proposal.title,
+  //         comment
+  //       );
+  //     },
+  //     error: (err) => {
+  //       console.error('Erreur lors du rejet', err);
+  //     },
+  //   });
+  // }
 
-  //   hideCommentSection(proposalId: string) {
-  //     this.showCommentSection[proposalId] = false;
-  //   }
+  toggleCommentSection(proposalId: string) {
+    this.showCommentSection[proposalId] = !this.showCommentSection[proposalId];
+    if (this.showCommentSection[proposalId] && !this.comments[proposalId]) {
+      this.comments[proposalId] = '';
+    }
+  }
 
-  //   confirmRejection(proposalId: string) {
-  //     this.rejectProposal(proposalId);
-  //   }
+  hideCommentSection(proposalId: string) {
+    this.showCommentSection[proposalId] = false;
+  }
 
-  //   cancelComment(proposalId: string) {
-  //     this.comments[proposalId] = '';
-  //     this.hideCommentSection(proposalId);
-  //   }
+  // confirmRejection(proposalId: string) {
+  //   this.rejectProposal(proposalId);
+  // }
 
-  //   addActivity(type: Activity['type'], message: string) {
-  //     const newActivity: Activity = {
-  //       id: Date.now().toString(),
-  //       type,
-  //       message,
-  //       date: new Date().toLocaleString('fr-FR'),
-  //     };
-  //     this.activities.unshift(newActivity);
-  //     if (this.activities.length > 10) {
-  //       this.activities = this.activities.slice(0, 10);
-  //     }
-  //   }
+  cancelComment(proposalId: string) {
+    this.comments[proposalId] = '';
+    this.hideCommentSection(proposalId);
+  }
 
-  //   notifyStudent(
-  //     student: Student,
-  //     action: 'validation' | 'rejection',
-  //     proposalTitle: string,
-  //     comment?: string
-  //   ) {
-  //     const notification = {
-  //       studentId: student.id,
-  //       studentEmail: student.email,
-  //       action,
-  //       proposalTitle,
-  //       comment,
-  //       timestamp: new Date().toISOString(),
-  //     };
+  addActivity(type: Activity['type'], message: string) {
+    const newActivity: Activity = {
+      id: Date.now().toString(),
+      type,
+      message,
+      date: new Date().toLocaleString('fr-FR'),
+    };
+    this.activities.unshift(newActivity);
+    if (this.activities.length > 10) {
+      this.activities = this.activities.slice(0, 10);
+    }
+  }
 
-  //     console.log('Notification à envoyer:', notification);
-  //   }
+  notifyStudent(
+    student: Student,
+    action: 'validation' | 'rejection',
+    proposalTitle: string,
+    comment?: string
+  ) {
+    const notification = {
+      studentId: student.id,
+      studentEmail: student.email,
+      action,
+      proposalTitle,
+      comment,
+      timestamp: new Date().toISOString(),
+    };
 
-  //   getStatusClass(status: string): string {
-  //     switch (status) {
-  //       case 'pending':
-  //         return 'status-pending';
-  //       case 'validated':
-  //         return 'status-validated';
-  //       case 'rejected':
-  //         return 'status-rejected';
-  //       default:
-  //         return '';
-  //     }
-  //   }
+    console.log('Notification à envoyer:', notification);
+  }
 
-  //   getStatusText(status: string): string {
-  //     switch (status) {
-  //       case 'pending':
-  //         return 'En attente';
-  //       case 'validated':
-  //         return 'Validé';
-  //       case 'rejected':
-  //         return 'Rejeté';
-  //       default:
-  //         return status;
-  //     }
-  //   }
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'pending':
+        return 'status-pending';
+      case 'validated':
+        return 'status-validated';
+      case 'rejected':
+        return 'status-rejected';
+      default:
+        return '';
+    }
+  }
 
-  //   getActivityIcon(type: string): string {
-  //     switch (type) {
-  //       case 'new_proposal':
-  //         return '📝';
-  //       case 'reminder':
-  //         return '⏰';
-  //       case 'validation':
-  //         return '✅';
-  //       case 'rejection':
-  //         return '❌';
-  //       default:
-  //         return '📋';
-  //     }
-  //   }
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'pending':
+        return 'En attente';
+      case 'validated':
+        return 'Validé';
+      case 'rejected':
+        return 'Rejeté';
+      default:
+        return status;
+    }
+  }
 
-  //   canModifyProposal(status: string): boolean {
-  //     return status === 'pending';
-  //   }
+  getActivityIcon(type: string): string {
+    switch (type) {
+      case 'new_proposal':
+        return '📝';
+      case 'reminder':
+        return '⏰';
+      case 'validation':
+        return '✅';
+      case 'rejection':
+        return '❌';
+      default:
+        return '📋';
+    }
+  }
 
-  //   getRemainingCharacters(proposalId: string, maxLength = 500): number {
-  //     const comment = this.comments[proposalId] || '';
-  //     return maxLength - comment.length;
-  //   }
+  canModifyProposal(status: string): boolean {
+    return status === 'pending';
+  }
+
+  getRemainingCharacters(proposalId: string, maxLength = 500): number {
+    const comment = this.comments[proposalId] || '';
+    return maxLength - comment.length;
+  }
 }

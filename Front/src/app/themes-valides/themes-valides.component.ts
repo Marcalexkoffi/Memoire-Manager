@@ -36,6 +36,45 @@ interface ValidatedStats {
   styleUrl: './themes-valides.component.scss',
 })
 export class ThemesValidesComponent implements OnInit {
+  selectedProposal: any = null;
+  availableTutors: any[] = [];
+
+  openTutorSelector(proposal: any) {
+    this.selectedProposal = proposal;
+
+    // Appel vers ton service pour charger les profs (mock temporaire ici)
+    this.availableTutors = [
+      { id: 1, name: 'Pr. Konan', email: 'konan@univ.edu' },
+      { id: 2, name: 'Pr. Toure', email: 'toure@univ.edu' },
+      { id: 3, name: 'Pr. Yao', email: 'yao@univ.edu' },
+    ];
+
+    // Remplace ce tableau statique par un appel réel à ton backend si tu veux
+  }
+  assignTutor(proposalId: string, tutorId: string) {
+    console.log(`Assign tutor ${tutorId} to proposal ${proposalId}`);
+    const tutor = this.availableTutors.find((t) => t.id === tutorId);
+    alert(
+      `✅ ${tutor.name} a été assigné comme tuteur pour la proposition "${this.selectedProposal.title}"`
+    );
+
+    // Exemple d'appel API :
+    // this.http
+    //   .put(`http://localhost:8000/api/proposals/${proposalId}/assign-tutor`, {
+    //     tutorId: tutorId,
+    //   })
+    //   .subscribe({
+    //     next: (res) => {
+    //       alert('Tuteur assigné avec succès ✅');
+    //       this.selectedProposal = null;
+    //       // Actualise les données si besoin
+    //     },
+    //     error: (err) => {
+    //       console.error(err);
+    //       alert("Erreur lors de l'assignation");
+    //     },
+    //   });
+  }
   // Données des propositions validées
   validatedProposals: ValidatedProposal[] = [
     {
