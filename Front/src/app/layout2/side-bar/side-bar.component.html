@@ -33,21 +33,12 @@
         <span class="text">Thèmes Validés</span>
       </a>
     </li>
+    <li></li>
     <li>
-      <a
-        [routerLink]="'/teacher/tutor-list'"
-        routerLinkActive="active"
-        class="nav-item"
+      <a (click)="deconnexion()"
+        ><span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+        <span class="text">Déconnexion</span></a
       >
-        <span class="icon"><i class="fas fa-clipboard-list"></i></span>
-        <span class="text">Professeurs Tuteurs</span>
-      </a>
-    </li>
-    <li>
-      <button (click)="deconnexion()">
-        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-        <span class="text">Déconnexion</span>
-      </button>
     </li>
   </ul>
 </aside>

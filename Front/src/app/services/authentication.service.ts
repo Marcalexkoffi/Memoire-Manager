@@ -9,10 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthenticationService {
   baseUrl: string = 'http://localhost:8000/api';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   register(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/register`, data);
@@ -28,22 +25,24 @@ export class AuthenticationService {
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem("token") !== null;
+    return localStorage.getItem('token') !== null;
   }
 
   redirect(): void {
-    const auth = JSON.parse(localStorage.getItem("user")!)?.role;
+    const auth = JSON.parse(localStorage.getItem('user')!)?.role;
 
-    if (auth === "Etudiant")
+    if (auth === 'Etudiant')
       this.router.navigate(['/workbench/student-dashboard']);
-    else if (auth === "Professeur")
+    else if (auth === 'Professeur')
       this.router.navigate(['/teacher/professor-dashboard']);
   }
 
   getMemoires(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/get-memoires`);
   }
-
+  getAllProposals(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/memoires-by-domain`);
+  }
   submit(data: any): Observable<any> {
     const token = localStorage.getItem('token');
 

@@ -15,13 +15,12 @@
         <li>
           <a [routerLink]="'/teacher/professor-dashboard'">Tableau de bord</a>
         </li>
-        <li><a [routerLink]="'/teacher/tutor-list'">Professeurs Tuteurs</a></li>
         <li>
           <a [routerLink]="'/teacher/themeList'" class="nav-item">
             Thèmes Validés
           </a>
         </li>
-        <li><button (click)="deconnexion()">Déconnexion</button></li>
+        <li><a (click)="deconnexion()">Déconnexion</a></li>
       </ul>
     </div>
   </div>
