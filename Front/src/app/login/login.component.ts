@@ -7,7 +7,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +20,11 @@ export class LoginComponent {
     private newRouter: Router,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private localStorage: LocalStorageService
   ) {}
   ngOnInit(): void {
+    if (this.authService.isAuthenticated())
+      this.authService.redirect();
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -37,7 +38,8 @@ export class LoginComponent {
     console.log('Les données soumises :', recupData);
     this.authService.login(recupData).subscribe({
       next: (data) => {
-        this.localStorage.setItem('token', data?.token);
+        localStorage.setItem('token', data?.token);
+        localStorage.setItem('user', JSON.stringify(data?.user))
 
         if (data?.user?.role == 'Etudiant') {
           this.newRouter.navigate(['/workbench/student-dashboard']);

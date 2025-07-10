@@ -1,18 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   baseUrl: string = 'http://localhost:8000/api';
-  httpHeaders: HttpHeaders = new HttpHeaders();
 
   constructor(
     private http: HttpClient,
-    private localStorage: LocalStorageService
+    private router: Router,
   ) {}
 
   register(data: any): Observable<any> {
@@ -23,12 +22,35 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.baseUrl}/login`, data);
   }
 
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['']);
+  }
+
+  isAuthenticated(): boolean {
+    return localStorage.getItem("token") !== null;
+  }
+
+  redirect(): void {
+    const auth = JSON.parse(localStorage.getItem("user")!)?.role;
+
+    if (auth === "Etudiant")
+      this.router.navigate(['/workbench/student-dashboard']);
+    else if (auth === "Professeur")
+      this.router.navigate(['/teacher/professor-dashboard']);
+  }
+
+  getMemoires(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/get-memoires`);
+  }
+
   submit(data: any): Observable<any> {
-    const token = this.localStorage.getItem('token');
-    this.httpHeaders.set('authorization', `Bearer ${token}`);
+    const token = localStorage.getItem('token');
 
     return this.http.post<any>(`${this.baseUrl}/theme/submit`, data, {
-      headers: this.httpHeaders,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 }

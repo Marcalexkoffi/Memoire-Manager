@@ -9,7 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../services/authentication.service';
 
-export interface StudentSubmission {
+/* export interface StudentSubmission {
   domaine: string;
   themeTitle: string;
   problematic: string;
@@ -17,7 +17,7 @@ export interface StudentSubmission {
   specificObjectives: string;
   expectedResults: string;
   studentId: string; // 🆕 Ajout pour lier à l'étudiant
-}
+} */
 
 @Component({
   selector: 'app-student-submit',
@@ -28,7 +28,7 @@ export interface StudentSubmission {
 })
 export class StudentSubmitComponent implements OnInit {
   studentForm!: FormGroup;
-  submittedData: StudentSubmission | null = null;
+  submittedData: any = null;
   showValues: boolean = false;
   isSubmitting: boolean = false;
 
@@ -59,16 +59,14 @@ export class StudentSubmitComponent implements OnInit {
       const formValue = this.studentForm.value;
 
       // 🆕 Simulation d’un ID étudiant (à remplacer par auth réelle)
-      const studentId = 'std123';
 
       this.submittedData = {
         domaine: formValue.domaine,
-        themeTitle: formValue.themeTitle,
-        problematic: formValue.problematic,
-        generalObjective: formValue.generalObjective,
-        specificObjectives: formValue.specificObjectives,
-        expectedResults: formValue.expectedResults,
-        studentId: studentId,
+        libelle_theme: formValue.themeTitle,
+        problematique: formValue.problematic,
+        objectif_general: formValue.generalObjective,
+        objectif_specifique: formValue.specificObjectives,
+        resultat_attendu: formValue.expectedResults,
       };
 
       this.authService.submit(this.submittedData).subscribe({

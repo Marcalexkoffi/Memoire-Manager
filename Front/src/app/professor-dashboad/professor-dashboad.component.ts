@@ -44,7 +44,7 @@ interface Activity {
   styleUrl: './professor-dashboad.component.scss',
 })
 export class ProfessorDashboadComponent implements OnInit {
-  professorName = 'Dr. Martin Dubois';
+  professorName: string = '';
 
   statistics: Statistics = {
     total: 0,
@@ -69,6 +69,9 @@ export class ProfessorDashboadComponent implements OnInit {
 
   ngOnInit() {
     this.loadProposals();
+
+    const professor = JSON.parse(localStorage.getItem('user') ?? '')
+    this.professorName = professor?.nom_complet;
   }
 
   loadProposals() {

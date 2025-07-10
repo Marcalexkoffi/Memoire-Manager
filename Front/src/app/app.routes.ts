@@ -11,6 +11,7 @@ import { TutorComponent } from './tutor/tutor.component';
 import { RegisterComponent } from './register/register.component';
 import { ThemesValidesComponent } from './themes-valides/themes-valides.component';
 import { PropositionsComponent } from './propositions/propositions.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,9 @@ export const routes: Routes = [
   {
     path: 'workbench',
     component: MainComponent,
+    canActivate: [
+      authGuard
+    ],
     children: [
       {
         path: 'student-dashboard',

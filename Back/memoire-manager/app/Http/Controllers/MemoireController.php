@@ -73,7 +73,7 @@ class MemoireController extends Controller
                 'objectif_general' => 'required|string',
                 'objectif_specifique' => 'required|string',
                 'resultat_attendu' => 'required|string',
-                'etat_validation' => 'in:en attente,valide,rejete',
+                //'etat_validation' => 'in:en attente,valide,rejete',
                 // 'etudiant_id' => 'required|exists:users,id',
                 // 'professeur_id' => 'nullable|exists:users,id',
                 // 'tuteur_id' => 'nullable|exists:users,id',
