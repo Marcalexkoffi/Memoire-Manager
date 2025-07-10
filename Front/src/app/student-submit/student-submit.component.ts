@@ -14,12 +14,14 @@ export interface StudentSubmission {
   themeTitle: string;
   problematic: string;
   generalObjective: string;
-  specificObjectives: string; // Changé de string[] à string
+  specificObjectives: string;
   expectedResults: string;
+  studentId: string; // 🆕 Ajout pour lier à l'étudiant
 }
 
 @Component({
   selector: 'app-student-submit',
+  standalone: true,
   imports: [RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './student-submit.component.html',
   styleUrl: './student-submit.component.scss',
@@ -45,43 +47,49 @@ export class StudentSubmitComponent implements OnInit {
       themeTitle: ['', [Validators.required]],
       problematic: ['', [Validators.required]],
       generalObjective: ['', [Validators.required]],
-      specificObjectives: ['', [Validators.required]], // Simple FormControl maintenant
+      specificObjectives: ['', [Validators.required]],
       expectedResults: ['', [Validators.required]],
     });
   }
 
-  // Soumettre le formulaire
   onSubmit(): void {
     if (this.studentForm.valid) {
       this.isSubmitting = true;
 
-      // Simuler un délai de soumission
-      setTimeout(() => {
-        const formValue = this.studentForm.value;
-        this.submittedData = {
-          domaine: formValue.domaine,
+      const formValue = this.studentForm.value;
 
-          themeTitle: formValue.themeTitle,
-          problematic: formValue.problematic,
-          generalObjective: formValue.generalObjective,
-          specificObjectives: formValue.specificObjectives, // Plus de filtrage nécessaire
-          expectedResults: formValue.expectedResults,
-        };
-        this.authService.submit(this.submittedData).subscribe({
-          next: (data) => console.log(data),
-          error: (err) => console.error(err),
-        });
-        this.showValues = true;
-        this.isSubmitting = false;
-        console.log('Données soumises:', this.submittedData);
-      }, 1500);
+      // 🆕 Simulation d’un ID étudiant (à remplacer par auth réelle)
+      const studentId = 'std123';
+
+      this.submittedData = {
+        domaine: formValue.domaine,
+        themeTitle: formValue.themeTitle,
+        problematic: formValue.problematic,
+        generalObjective: formValue.generalObjective,
+        specificObjectives: formValue.specificObjectives,
+        expectedResults: formValue.expectedResults,
+        studentId: studentId,
+      };
+
+      this.authService.submit(this.submittedData).subscribe({
+        next: (data) => {
+          console.log('✅ Soumission envoyée :', data);
+          this.isSubmitting = false;
+          alert('🎉 Votre proposition a été soumise avec succès !');
+          this.resetForm();
+        },
+        error: (err) => {
+          console.error('❌ Erreur lors de la soumission', err);
+          this.isSubmitting = false;
+          alert("Une erreur s'est produite. Veuillez réessayer plus tard.");
+        },
+      });
     } else {
       this.markFormGroupTouched();
-      console.log('Formulaire invalide');
+      console.warn('Formulaire invalide');
     }
   }
 
-  // Annuler le formulaire
   onCancel(): void {
     if (
       confirm(
@@ -92,7 +100,6 @@ export class StudentSubmitComponent implements OnInit {
     }
   }
 
-  // Marquer tous les champs comme touchés pour afficher les erreurs
   private markFormGroupTouched(): void {
     Object.keys(this.studentForm.controls).forEach((key) => {
       const control = this.studentForm.get(key);
@@ -100,25 +107,21 @@ export class StudentSubmitComponent implements OnInit {
     });
   }
 
-  // Réinitialiser le formulaire
   resetForm(): void {
     this.studentForm.reset();
     this.showValues = false;
     this.submittedData = null;
   }
 
-  // Masquer les valeurs affichées
   hideValues(): void {
     this.showValues = false;
     this.submittedData = null;
   }
 
-  // Vérifier si le formulaire est valide
   isFormValid(): boolean {
     return this.studentForm.valid;
   }
 
-  // Obtenir le pourcentage de completion
   getCompletionPercentage(): number {
     const totalFields = Object.keys(this.studentForm.controls).length;
     let completedFields = 0;

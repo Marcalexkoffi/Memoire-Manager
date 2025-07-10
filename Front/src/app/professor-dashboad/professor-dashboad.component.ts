@@ -2,6 +2,7 @@ import { Component, type OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ProposalService, ProposalPayload } from '../services/proposal.service';
 
 // Interfaces pour typer les données
 interface Student {
@@ -37,15 +38,14 @@ interface Activity {
 
 @Component({
   selector: 'app-professor-dashboad',
+  standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './professor-dashboad.component.html',
   styleUrl: './professor-dashboad.component.scss',
 })
 export class ProfessorDashboadComponent implements OnInit {
-  // Données du professeur
   professorName = 'Dr. Martin Dubois';
 
-  // Statistiques
   statistics: Statistics = {
     total: 0,
     pending: 0,
@@ -53,86 +53,37 @@ export class ProfessorDashboadComponent implements OnInit {
     rejected: 0,
   };
 
-  // Liste des propositions
-  proposals: Proposal[] = [
-    {
-      id: '1',
-      student: {
-        id: 'std1',
-        name: 'Marie Dupont',
-        email: 'marie.dupont@email.com',
-      },
-      title: 'Intelligence Artificielle en Éducation',
-      description:
-        "Étude de l'impact de l'IA sur les méthodes d'apprentissage modernes",
-      domain: 'Informatique',
-      date: '2024-01-15',
-      status: 'pending',
-    },
-    {
-      id: '2',
-      student: {
-        id: 'std2',
-        name: 'Jean Martin',
-        email: 'jean.martin@email.com',
-      },
-      title: 'Marketing Digital et Réseaux Sociaux',
-      description:
-        "Analyse de l'efficacité des campagnes marketing sur les plateformes sociales",
-      domain: 'Marketing',
-      date: '2024-01-12',
-      status: 'pending',
-    },
-    {
-      id: '3',
-      student: {
-        id: 'std3',
-        name: 'Sophie Bernard',
-        email: 'sophie.bernard@email.com',
-      },
-      title: 'Blockchain et Finance',
-      description:
-        'Impact de la blockchain sur les services financiers traditionnels',
-      domain: 'Finance',
-      date: '2024-01-10',
-      status: 'validated',
-    },
-  ];
-
-  // Propositions filtrées
+  proposals: Proposal[] = [];
   filteredProposals: Proposal[] = [];
 
-  // Activités récentes
-  activities: Activity[] = [
-    {
-      id: '1',
-      type: 'new_proposal',
-      message: 'Nouvelle proposition soumise par Marie Dupont',
-      date: '2024-01-15 14:30',
-    },
-    {
-      id: '2',
-      type: 'reminder',
-      message: 'Rappel: 3 propositions en attente de validation',
-      date: '2024-01-14 09:00',
-    },
-  ];
+  activities: Activity[] = [];
 
-  // États pour la gestion des commentaires
   showCommentSection: { [key: string]: boolean } = {};
   comments: { [key: string]: string } = {};
 
-  // Filtres
   statusFilter = 'all';
   domainFilter = 'all';
   searchTerm = '';
 
+  constructor(private proposalService: ProposalService) {}
+
   ngOnInit() {
-    this.updateStatistics();
-    this.applyFilters();
+    this.loadProposals();
   }
 
-  // Calcul des statistiques
+  loadProposals() {
+    this.proposalService.getAllProposals().subscribe({
+      next: (data: Proposal[]) => {
+        this.proposals = data;
+        this.updateStatistics();
+        this.applyFilters();
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des propositions', err);
+      },
+    });
+  }
+
   updateStatistics() {
     this.statistics.total = this.proposals.length;
     this.statistics.pending = this.proposals.filter(
@@ -146,7 +97,6 @@ export class ProfessorDashboadComponent implements OnInit {
     ).length;
   }
 
-  // Application des filtres
   applyFilters() {
     this.filteredProposals = this.proposals.filter((proposal) => {
       const matchesStatus =
@@ -167,7 +117,6 @@ export class ProfessorDashboadComponent implements OnInit {
     });
   }
 
-  // Gestionnaires d'événements pour les filtres
   onStatusFilterChange(event: any) {
     this.statusFilter = event.target.value;
     this.applyFilters();
@@ -183,107 +132,83 @@ export class ProfessorDashboadComponent implements OnInit {
     this.applyFilters();
   }
 
-  // **ACTIONS PRINCIPALES**
-
-  // Valider une proposition
   validateProposal(proposalId: string) {
     const proposal = this.proposals.find((p) => p.id === proposalId);
-    if (proposal && proposal.status === 'pending') {
-      proposal.status = 'validated';
+    if (!proposal || proposal.status !== 'pending') return;
 
-      // Ajouter une activité
-      this.addActivity(
-        'validation',
-        `Proposition "${proposal.title}" validée pour ${proposal.student.name}`
-      );
-
-      // Mettre à jour les statistiques
-      this.updateStatistics();
-      this.applyFilters();
-
-      // Masquer la section commentaire si elle était ouverte
-      this.hideCommentSection(proposalId);
-
-      // Ici vous pouvez ajouter l'appel à votre service pour notifier l'étudiant
-      this.notifyStudent(proposal.student, 'validation', proposal.title);
-
-      console.log(`Proposition ${proposalId} validée`);
-    }
+    this.proposalService.validateProposal(proposalId).subscribe({
+      next: () => {
+        proposal.status = 'validated';
+        this.updateStatistics();
+        this.applyFilters();
+        this.addActivity(
+          'validation',
+          `Proposition "${proposal.title}" validée pour ${proposal.student.name}`
+        );
+        this.hideCommentSection(proposalId);
+        this.notifyStudent(proposal.student, 'validation', proposal.title);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la validation', err);
+      },
+    });
   }
 
-  // Rejeter une proposition
   rejectProposal(proposalId: string) {
     const comment = this.comments[proposalId];
-
     if (!comment || comment.trim() === '') {
       alert('Un commentaire est obligatoire pour rejeter une proposition.');
       return;
     }
 
     const proposal = this.proposals.find((p) => p.id === proposalId);
-    if (proposal && proposal.status === 'pending') {
-      proposal.status = 'rejected';
-      proposal.comment = comment.trim();
+    if (!proposal || proposal.status !== 'pending') return;
 
-      // Ajouter une activité
-      this.addActivity(
-        'rejection',
-        `Proposition "${proposal.title}" rejetée pour ${proposal.student.name}`
-      );
-
-      // Mettre à jour les statistiques
-      this.updateStatistics();
-      this.applyFilters();
-
-      // Masquer la section commentaire
-      this.hideCommentSection(proposalId);
-
-      // Réinitialiser le commentaire
-      this.comments[proposalId] = '';
-
-      // Ici vous pouvez ajouter l'appel à votre service pour notifier l'étudiant
-      this.notifyStudent(
-        proposal.student,
-        'rejection',
-        proposal.title,
-        comment
-      );
-
-      console.log(
-        `Proposition ${proposalId} rejetée avec commentaire: ${comment}`
-      );
-    }
+    this.proposalService.rejectProposal(proposalId, comment.trim()).subscribe({
+      next: () => {
+        proposal.status = 'rejected';
+        proposal.comment = comment.trim();
+        this.updateStatistics();
+        this.applyFilters();
+        this.addActivity(
+          'rejection',
+          `Proposition "${proposal.title}" rejetée pour ${proposal.student.name}`
+        );
+        this.hideCommentSection(proposalId);
+        this.comments[proposalId] = '';
+        this.notifyStudent(
+          proposal.student,
+          'rejection',
+          proposal.title,
+          comment
+        );
+      },
+      error: (err) => {
+        console.error('Erreur lors du rejet', err);
+      },
+    });
   }
 
-  // Afficher/masquer la section commentaire
   toggleCommentSection(proposalId: string) {
     this.showCommentSection[proposalId] = !this.showCommentSection[proposalId];
-
-    // Si on ouvre la section, initialiser le commentaire s'il n'existe pas
     if (this.showCommentSection[proposalId] && !this.comments[proposalId]) {
       this.comments[proposalId] = '';
     }
   }
 
-  // Masquer la section commentaire
   hideCommentSection(proposalId: string) {
     this.showCommentSection[proposalId] = false;
   }
 
-  // Confirmer le rejet avec commentaire
   confirmRejection(proposalId: string) {
     this.rejectProposal(proposalId);
   }
 
-  // Annuler l'action de commentaire
   cancelComment(proposalId: string) {
     this.comments[proposalId] = '';
     this.hideCommentSection(proposalId);
   }
 
-  // **MÉTHODES UTILITAIRES**
-
-  // Ajouter une activité
   addActivity(type: Activity['type'], message: string) {
     const newActivity: Activity = {
       id: Date.now().toString(),
@@ -291,25 +216,18 @@ export class ProfessorDashboadComponent implements OnInit {
       message,
       date: new Date().toLocaleString('fr-FR'),
     };
-
     this.activities.unshift(newActivity);
-
-    // Garder seulement les 10 dernières activités
     if (this.activities.length > 10) {
       this.activities = this.activities.slice(0, 10);
     }
   }
 
-  // Notifier l'étudiant (à implémenter avec votre service)
   notifyStudent(
     student: Student,
     action: 'validation' | 'rejection',
     proposalTitle: string,
     comment?: string
   ) {
-    // Ici vous pouvez implémenter l'appel à votre service de notification
-    // Par exemple: this.notificationService.sendNotification(...)
-
     const notification = {
       studentId: student.id,
       studentEmail: student.email,
@@ -320,13 +238,8 @@ export class ProfessorDashboadComponent implements OnInit {
     };
 
     console.log('Notification à envoyer:', notification);
-
-    // Exemple d'implémentation:
-    // this.emailService.sendNotificationEmail(notification);
-    // this.websocketService.sendRealTimeNotification(notification);
   }
 
-  // Obtenir la classe CSS pour le statut
   getStatusClass(status: string): string {
     switch (status) {
       case 'pending':
@@ -340,7 +253,6 @@ export class ProfessorDashboadComponent implements OnInit {
     }
   }
 
-  // Obtenir le texte du statut
   getStatusText(status: string): string {
     switch (status) {
       case 'pending':
@@ -354,7 +266,6 @@ export class ProfessorDashboadComponent implements OnInit {
     }
   }
 
-  // Obtenir l'icône de l'activité
   getActivityIcon(type: string): string {
     switch (type) {
       case 'new_proposal':
@@ -370,12 +281,10 @@ export class ProfessorDashboadComponent implements OnInit {
     }
   }
 
-  // Vérifier si une proposition peut être modifiée
   canModifyProposal(status: string): boolean {
     return status === 'pending';
   }
 
-  // Obtenir le nombre de caractères restants pour un commentaire
   getRemainingCharacters(proposalId: string, maxLength = 500): number {
     const comment = this.comments[proposalId] || '';
     return maxLength - comment.length;
