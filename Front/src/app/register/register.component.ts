@@ -50,6 +50,8 @@ export class RegisterComponent implements OnInit {
         contact: ['', [Validators.required, Validators.minLength(10)]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
+        matricule: ['', [Validators.required, Validators.minLength(5)]],
+        domaine: ['', [Validators.required, Validators.minLength(5)]],
         acceptTerms: [false, [Validators.requiredTrue]],
       },
       {
@@ -78,29 +80,30 @@ export class RegisterComponent implements OnInit {
   // Méthode pour sélectionner le type d'utilisateur
   selectUserType(type: string): void {
     this.userType = type;
+    this.selectedUserType = type;
     this.registerForm.get('userType')?.setValue(type);
 
     if (type === 'Professeur') {
-      if (!this.registerForm.get('professorDomain')) {
+      if (!this.registerForm.get('domaine')) {
         this.registerForm.addControl(
-          'professorDomain',
+          'domaine',
           this.fb.control('', Validators.required)
         );
       }
 
-      if (!this.registerForm.get('professorMatricule')) {
+      if (!this.registerForm.get('matricule')) {
         this.registerForm.addControl(
-          'professorMatricule',
+          'matricule',
           this.fb.control('', Validators.required)
         );
       }
     } else {
-      if (this.registerForm.get('professorDomain')) {
-        this.registerForm.removeControl('professorDomain');
+      if (this.registerForm.get('domaine')) {
+        this.registerForm.removeControl('domaine');
       }
 
-      if (this.registerForm.get('professorMatricule')) {
-        this.registerForm.removeControl('professorMatricule');
+      if (this.registerForm.get('matricule')) {
+        this.registerForm.removeControl('matricule');
       }
     }
   }
@@ -120,6 +123,8 @@ export class RegisterComponent implements OnInit {
         contact: this.registerForm.get('contact')?.value,
         password: this.registerForm.get('password')?.value,
         confirmPassword: this.registerForm.get('confirmPassword')?.value,
+        matricule: this.registerForm.get('matricule')?.value,
+        domaine: this.registerForm.get('domaine')?.value,
         role: this.selectedUserType,
         acceptTerms: this.registerForm.get('acceptTerms')?.value,
       };
