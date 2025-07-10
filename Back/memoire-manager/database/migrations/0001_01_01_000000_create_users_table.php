@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('contact');
             $table->enum('role', ['Etudiant', 'Professeur', 'Tuteur']);
+            $table->string('domaine');
+            $table->string('matricule')->unique();
             $table->rememberToken();
             $table->timestamps();
         });

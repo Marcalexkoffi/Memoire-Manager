@@ -58,6 +58,7 @@ class AuthController extends Controller
                 'password' => 'required|string|min:6',
                 'contact' => 'required|string|min:10',
                 'role' => 'in:Etudiant,Professeur,Tuteur',
+                'matricule' => 'required|min:5|unique:users',
             ]);
         } catch (ValidationException $e) {
             return response()->json([

@@ -25,6 +25,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $roles = ['Etudiant', 'Professeur', 'Tuteur'];
+        $domaine = ['Marketing', 'Administration', 'Informatique', 'Communication', 'Finance'];
 
         return [
             'nom_complet' => fake()->name(),
@@ -32,6 +33,8 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('azerty'),
             'contact' => fake()->numerify("+225 0# ## ## ## ##"),
             'role' => $roles[rand(0, count($roles)-1)],
+            'domaine' => $domaine[random_int(0, count($domaine)-1)],
+            'matricule' => Str::random(5),
             'remember_token' => Str::random(10),
         ];
     }

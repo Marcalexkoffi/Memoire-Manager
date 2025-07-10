@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\TokenMiddleware;
 use App\Models\Memoire;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -104,5 +105,20 @@ class MemoireController extends Controller
         } catch (\Throwable $th) {
             return response()->json("Erreur serveur : ". $th->getMessage(), 500);
         }
+    }
+
+    public function themesFilterByDomain(Request $request) { 
+        $this->checkToken($request);
+
+        $professor = $request->user();
+        $memoires = Memoire::where('domaine', $professor->domaine)->get();
+
+        if ($memoires){
+            return response()->json([
+                'message' => "Memoires assignes au domaine ". $professor->domaine,
+                'memoires' => $memoires
+            ], 200);
+        }
+        return response()->json(['message' => "Aucun memoires trouve pour le domaine ". $professor->domaine], 404);
     }
 }
