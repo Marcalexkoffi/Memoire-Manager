@@ -17,9 +17,6 @@ export class AuthenticationService {
     return this.http.post<any>(`${this.baseUrl}/login`, data);
   }
   submit(data: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseUrl}/workbench/student-submit`,
-      data
-    );
+    return this.http.post<any>(`${this.baseUrl}/theme/submit`, data);
   }
 }
