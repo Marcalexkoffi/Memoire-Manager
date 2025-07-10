@@ -116,34 +116,34 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let proposal of filteredProposals">
+              <tr *ngFor="let proposal of proposals">
                 <td class="student-cell">
                   <div class="student-info">
                     <div class="student-avatar">
                       <i class="fas fa-user"></i>
                     </div>
                     <div class="student-details">
-                      <strong>{{ proposal.student.name }}</strong>
-                      <small>{{ proposal.student.email }}</small>
+                      <strong>{{ proposal.nom_complet }}</strong>
+                      <small></small>
                     </div>
                   </div>
                 </td>
 
                 <td class="title-cell">
                   <div class="proposal-title">
-                    <strong>{{ proposal.title }}</strong>
+                    <strong>{{ proposal.libelle_theme }}</strong>
                     <p class="proposal-description">
-                      {{ proposal.description }}
+                      <!-- {{ proposal.description }} -->
                     </p>
                   </div>
                 </td>
 
                 <td class="domain-cell">
-                  <span class="domain-badge">{{ proposal.domain }}</span>
+                  <span class="domain-badge">{{ proposal.domaine }}</span>
                 </td>
 
                 <td class="date-cell">
-                  {{ proposal.date | date : "dd/MM/yyyy" }}
+                  {{ formatDate(proposal.created_at) }}
                 </td>
 
                 <td class="status-cell">
@@ -151,14 +151,14 @@
                     class="status"
                     [ngClass]="getStatusClass(proposal.status)"
                   >
-                    {{ getStatusText(proposal.status) }}
+                    {{ proposal.etat_validation }}
                   </span>
                 </td>
 
                 <td class="actions-cell">
                   <div
                     class="action-buttons"
-                    *ngIf="canModifyProposal(proposal.status)"
+                    *ngIf="canModifyProposal(proposal.etat_validation)"
                   >
                     <button class="btn btn-success btn-sm" title="Valider">
                       <i class="fas fa-check"></i>
@@ -261,7 +261,7 @@
           </table>
 
           <!-- Message si aucune proposition -->
-          <div class="no-proposals" *ngIf="filteredProposals.length === 0">
+          <div class="no-proposals" *ngIf="proposals.length === 0">
             <i class="fas fa-inbox"></i>
             <h4>Aucune proposition trouvée</h4>
             <p>Aucune proposition ne correspond aux critères de recherche.</p>

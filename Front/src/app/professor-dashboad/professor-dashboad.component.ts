@@ -54,7 +54,7 @@ export class ProfessorDashboadComponent implements OnInit {
     rejected: 0,
   };
 
-  proposals: Proposal[] = [];
+  proposals: Array<any> = [];
   filteredProposals: Proposal[] = [];
 
   activities: Activity[] = [];
@@ -71,9 +71,19 @@ export class ProfessorDashboadComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getAllProposals().subscribe({
-      next: (memoires) => (this.memoires = memoires),
+      next: (proposals) => {
+        this.proposals = proposals.memoires;
+        console.log(this.proposals);
+      },
       error: (error) => console.error(),
     });
+  }
+
+  formatDate(date: string): string {
+    const d = new Date(date);
+    const formattedDate = d.getDay() + "/" + d.getMonth() + "/" + d.getFullYear();
+
+    return formattedDate;
   }
 
   applyFilters() {
@@ -261,7 +271,7 @@ export class ProfessorDashboadComponent implements OnInit {
   }
 
   canModifyProposal(status: string): boolean {
-    return status === 'pending';
+    return status === 'En attente';
   }
 
   getRemainingCharacters(proposalId: string, maxLength = 500): number {

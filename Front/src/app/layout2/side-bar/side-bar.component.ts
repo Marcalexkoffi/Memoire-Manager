@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-side-barr',
@@ -12,10 +13,10 @@ export class SideBarrComponent implements OnInit {
   user_string: string  = "";
   user: any;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService, private localService: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.user_string = localStorage.getItem('user') ?? "";
+    this.user_string = this.localService.getItem('user') ?? "";
     this.user = JSON.parse(this.user_string);
   }
 

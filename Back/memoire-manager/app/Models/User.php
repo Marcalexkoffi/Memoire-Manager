@@ -23,22 +23,14 @@ class User extends Authenticatable
         'email',
         'password',
         'contact',
-        'role'
+        'role',
+        'domaine',
+        'matricule',
     ];
 
-    public function memoiresSoumis()
+    public function memoires()
     {   
-        return $this->hasMany(Memoire::class, 'etudiant_id');
-    }
-
-    public function memoiresTuteur()
-    {
-        return $this->hasMany(Memoire::class, 'tuteur_id');
-    }
-
-    public function memoiresProf()
-    {
-        return $this->hasMany(Memoire::class, 'professeur_id');
+        return $this->hasMany(Memoire::class);
     }
 
 

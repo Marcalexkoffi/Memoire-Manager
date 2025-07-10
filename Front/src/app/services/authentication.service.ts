@@ -38,11 +38,24 @@ export class AuthenticationService {
   }
 
   getMemoires(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/get-memoires`);
+    const token = localStorage.getItem("token");
+
+    return this.http.get<any>(`${this.baseUrl}/get-memoires`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
   getAllProposals(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/memoires-by-domain`);
+    const token = localStorage.getItem("token");
+
+    return this.http.get(`${this.baseUrl}/memoires-by-domain`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
+
   submit(data: any): Observable<any> {
     const token = localStorage.getItem('token');
 

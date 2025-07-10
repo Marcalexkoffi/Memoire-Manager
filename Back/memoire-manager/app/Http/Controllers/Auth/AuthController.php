@@ -58,7 +58,8 @@ class AuthController extends Controller
                 'password' => 'required|string|min:6',
                 'contact' => 'required|string|min:10',
                 'role' => 'in:Etudiant,Professeur,Tuteur',
-                'matricule' => 'required|min:5|unique:users',
+                'domaine' => 'required',
+                'matricule' => 'required|unique:users',
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -71,6 +72,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'contact' => $request->contact,
+            'domaine' => $request->domaine,
+            'matricule' => $request->matricule,
             'role' => $request->role,
         ]);
 
@@ -82,10 +85,10 @@ class AuthController extends Controller
         return response()->json(['message' => "Impossible de creer l'utilisateur !"], 400);
     }
 
-    public function destroy(Request $request)
+    /* public function destroy(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => "Utilisateur deconnecte avec succes"], 200);
-    }
+    } */
 }

@@ -24,6 +24,7 @@ class MemoireFactory extends Factory
             'objectif_general' => fake()->paragraph(2),
             'objectif_specifique' => fake()->paragraph(2),
             'domaine' => $domaine[random_int(0, count($domaine)-1)],
+            'etudiant_id' => random_int(1,10),
             'resultat_attendu' => fake()->sentence(),
         ];
     }

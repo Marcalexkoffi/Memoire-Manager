@@ -7,6 +7,7 @@ use App\Models\Memoire;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class MemoireController extends Controller
@@ -111,12 +112,19 @@ class MemoireController extends Controller
         $this->checkToken($request);
 
         $professor = $request->user();
-        $memoires = Memoire::where('domaine', $professor->domaine)->get();
+
+        $memoires = DB::table('users')
+        ->join('memoires', 'users.id', '=' ,'memoires.etudiant_id')
+        ->select('users.*', 'memoires.*')
+        ->where('memoires.domaine', $professor->domaine)
+        ->get();
+
+        //$memoires = Memoire::where('domaine', $professor->domaine)->get();
 
         if ($memoires){
             return response()->json([
                 'message' => "Memoires assignes au domaine ". $professor->domaine,
-                'memoires' => $memoires
+                'memoires' => $memoires,
             ], 200);
         }
         return response()->json(['message' => "Aucun memoires trouve pour le domaine ". $professor->domaine], 404);
