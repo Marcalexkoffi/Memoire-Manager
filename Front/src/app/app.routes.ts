@@ -42,9 +42,9 @@ export const routes: Routes = [
   {
     path: 'workbench',
     component: MainComponent,
-    canActivate: [
-      authGuard
-    ],
+    // canActivate: [
+    //   authGuard
+    // ],
     children: [
       {
         path: 'student-dashboard',

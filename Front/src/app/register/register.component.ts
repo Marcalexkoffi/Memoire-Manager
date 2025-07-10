@@ -17,9 +17,11 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {
+  userType: string = '';
   registerForm!: FormGroup;
   selectedUserType: string = '';
   submittedData: any = null;
+
   // showValues: boolean = false;
 
   // Statistiques pour l'affichage
@@ -28,6 +30,7 @@ export class RegisterComponent implements OnInit {
     memoires: 892,
     validated: 634,
   };
+  fb: any;
 
   constructor(
     private newRouter: Router,
@@ -73,8 +76,33 @@ export class RegisterComponent implements OnInit {
   }
 
   // Méthode pour sélectionner le type d'utilisateur
-  selectUserType(userType: string): void {
-    this.selectedUserType = userType;
+  selectUserType(type: string): void {
+    this.userType = type;
+    this.registerForm.get('userType')?.setValue(type);
+
+    if (type === 'Professeur') {
+      if (!this.registerForm.get('professorDomain')) {
+        this.registerForm.addControl(
+          'professorDomain',
+          this.fb.control('', Validators.required)
+        );
+      }
+
+      if (!this.registerForm.get('professorMatricule')) {
+        this.registerForm.addControl(
+          'professorMatricule',
+          this.fb.control('', Validators.required)
+        );
+      }
+    } else {
+      if (this.registerForm.get('professorDomain')) {
+        this.registerForm.removeControl('professorDomain');
+      }
+
+      if (this.registerForm.get('professorMatricule')) {
+        this.registerForm.removeControl('professorMatricule');
+      }
+    }
   }
 
   // Méthode pour vérifier si un type d'utilisateur est sélectionné
@@ -85,7 +113,7 @@ export class RegisterComponent implements OnInit {
   // Méthode pour soumettre le formulaire
   onSubmit(): void {
     if (this.registerForm.valid && this.selectedUserType) {
-     // this.submittedData = this.registerForm.getRawValue()
+      // this.submittedData = this.registerForm.getRawValue()
       this.submittedData = {
         nom_complet: this.registerForm.get('fullName')?.value,
         email: this.registerForm.get('email')?.value,
